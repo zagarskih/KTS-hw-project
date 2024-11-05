@@ -1,0 +1,30 @@
+@import 'styles/styles.scss';
+
+.title {
+  font-size: 32px !important;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: $space-l;
+}
+
+.link {
+  outline: none;
+  text-decoration: none;
+  background: transparent;
+  color: inherit;
+}
+
+.card {
+  width: 360px;
+}
+
+@media (max-width: 1340px) {
+  .cardsContainer {
+    justify-content: baseline;
+  }
+}

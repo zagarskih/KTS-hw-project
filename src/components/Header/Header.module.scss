@@ -1,0 +1,65 @@
+@import "../../index.scss";
+@import "styles/Roboto/fonts.css";
+@import "styles/styles.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  padding: 0 100px;
+
+  background-color: $background-elements;
+  border-bottom: 2px solid $border;
+
+  box-sizing: border-box;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  gap: $space-m;
+}
+
+.textContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-xl;
+}
+
+.textWrapper {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.highlightedtext {
+  position: relative;
+  overflow: visible !important;
+}
+
+.highlightedtext::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 100%;
+  margin-top: 33px;
+  width: calc(100% + 8px);
+  height: 3px;
+  background-color: $brand;
+  z-index: 10000;
+}
+
+.link {
+  text-decoration: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+}
+
+.bag,
+.user {
+  cursor: pointer;
+}

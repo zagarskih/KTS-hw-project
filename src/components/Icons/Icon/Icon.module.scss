@@ -1,0 +1,18 @@
+@import 'styles/styles.scss';
+
+.icon {
+  width: 24px;
+  height: 24px;
+
+  &.primary {
+    color: $icon-primary;
+  }
+
+  &.secondary {
+    color: $icon-secondary;
+  }
+
+  &.accent {
+    color: $brand;
+  }
+}

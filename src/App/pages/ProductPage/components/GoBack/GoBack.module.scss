@@ -1,0 +1,23 @@
+@import 'styles/styles.scss';
+
+.container {
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: $space-xxs;
+}
+
+.button {
+  width: auto;
+  height: 100%;
+  background-color: $background;
+  color: $text-primary;
+  padding: $space-xs;
+}
+
+.button:hover {
+  background-color: $background !important;
+}

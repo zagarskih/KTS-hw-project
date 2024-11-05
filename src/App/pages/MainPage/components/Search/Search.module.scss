@@ -1,0 +1,21 @@
+@import 'styles/styles.scss';
+
+.container {
+  display: flex;
+}
+
+.search {
+  display: flex;
+  width: 100%;
+}
+
+.searchButton {
+  display: flex;
+  flex: 0 0 auto;
+  margin-left: $space-m;
+}
+
+.input {
+  display: flex;
+  flex: 1 1 auto;
+}

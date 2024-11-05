@@ -1,0 +1,56 @@
+@import 'styles/styles.scss';
+
+.container {
+  position: relative;
+  width: 300px;
+  cursor: pointer;
+}
+
+.input {
+  color: $input-placeholder;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 0;
+  overflow-y: auto;
+  margin-top: 8px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.item {
+  padding: 14px 12px;
+  display: flex;
+  align-items: center;
+  color: $text-primary;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.item__selected {
+  color: $text-accent;
+
+  &:hover {
+    color: $text-secondary;
+  }
+}
+
+.icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+
+  &.flipIcon {
+    transform: scaleY(-1);
+  }
+}

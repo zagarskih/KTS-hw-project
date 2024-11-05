@@ -1,0 +1,19 @@
+@import 'styles/styles.scss';
+
+.icon {
+  &.primary {
+    stroke: $icon-primary;
+  }
+
+  &.secondary {
+    stroke: $icon-secondary;
+  }
+
+  &.accent {
+    stroke: $brand;
+  }
+
+  &.inherit {
+    stroke: inherit;
+  }
+}
