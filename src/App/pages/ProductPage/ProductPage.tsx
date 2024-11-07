@@ -40,7 +40,7 @@ const ProductPage: React.FC = () => {
 
   return (
     <div className={styles.root}>
-      <Header />
+      <Header className={styles.header}/>
       <Link className={styles.goBackLink} to="/products">
         <GoBack className={styles.goBack} />
       </Link>

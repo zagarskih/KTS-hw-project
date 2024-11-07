@@ -15,32 +15,34 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const { className } = props;
   const location = useLocation();
 
+  const tabs = {
+    products: 'Products',
+    categories: 'Categories',
+    about: 'About us',
+  };
+
   return (
     <div className={classNames(className, styles.container)}>
-      <Link className={styles.link} to="/">
+      <Link className='link' to="/products">
         <img src={frame} alt="frame" />
       </Link>
 
       <div className={styles.textContainer}>
-        <Link className={styles.link} to="/">
-          <div key="products" className={styles.textWrapper}>
-            <Text
-              view="p-18"
-              className={classNames(location.pathname.startsWith('/products') && styles.highlightedtext)}
-              color={location.pathname.startsWith('/products') ? 'accent' : 'primary'}
-            >
-              Products
-            </Text>
-          </div>
-        </Link>
-
-        <div key="categories" className={styles.text}>
-          <Text view="p-18">Categories</Text>
-        </div>
-
-        <div key="about" className={styles.text}>
-          <Text view="p-18">About Us</Text>
-        </div>
+        {Object.entries(tabs).map(([key, value]) => {
+          return (
+            <Link className='link' to={`/${key}`}>
+              <div key={key} className={styles.textWrapper}>
+                <Text
+                  view="p-18"
+                  className={classNames(location.pathname.startsWith(`/${key}`) && styles.highlightedtext)}
+                  color={location.pathname.startsWith(`/${key}`) ? 'accent' : 'primary'}
+                >
+                  {value}
+                </Text>
+              </div>
+            </Link>
+          );
+        })}
       </div>
 
       <div className={styles.icons}>
