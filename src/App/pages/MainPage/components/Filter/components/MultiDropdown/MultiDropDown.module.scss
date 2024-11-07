@@ -8,10 +8,7 @@
 
 .input {
   color: $input-placeholder;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 400;
+  @include font-primary-s14;
 }
 
 .options {
@@ -36,6 +33,7 @@
   font-size: 14px;
   line-height: 20px;
   cursor: pointer;
+  @include font-primary-s14
 }
 
 .item__selected {

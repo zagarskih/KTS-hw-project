@@ -32,3 +32,17 @@ $space-xl: 48px;
   width: $size;
   height: $size;
 }
+
+@mixin font-primary-s14 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin font-primary-s16 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
