@@ -1,6 +1,5 @@
 import React from 'react';
-import Text from 'components/Text';
-import Button from 'components/Button';
+import { Text, Button } from 'components';
 import { Link } from 'react-router-dom';
 import styles from './NotFoundPage.module.scss';
 
