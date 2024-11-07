@@ -27,7 +27,8 @@
       "api/*": ["api/*"],
       "hooks/*": ["hooks/*"],
       "helpers/*": ["helpers/*"],
-      "styles/*": ["styles/*"]
+      "styles/*": ["styles/*"],
+      "pages/*": ["styles/*"],
     }
   },
   "include": ["src"]
