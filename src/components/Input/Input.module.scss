@@ -1,4 +1,4 @@
-@import 'styles/styles.scss';
+@import "styles/styles.scss";
 
 .container {
   display: flex;
@@ -14,7 +14,7 @@
   background-color: white;
   border: 1px solid white;
 
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-size: 16px;
   line-height: 20px;
   font-weight: 400;
@@ -27,17 +27,17 @@
   &:disabled {
     color: $input-placeholder;
   }
+
+  &::placeholder {
+    font-family: "Roboto";
+    font-size: 16px;
+    line-height: 20px;
+    color: $input-placeholder;
+    font-weight: 400;
+  }
 }
 
 .icon {
   position: absolute;
   margin-right: 14px;
-}
-
-input::placeholder {
-  font-family: 'Roboto';
-  font-size: 16px;
-  line-height: 20px;
-  color: $input-placeholder;
-  font-weight: 400;
 }
