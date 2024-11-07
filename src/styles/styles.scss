@@ -20,3 +20,8 @@ $space-s: 16px;
 $space-m: 24px;
 $space-l: 32px;
 $space-xl: 48px;
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}

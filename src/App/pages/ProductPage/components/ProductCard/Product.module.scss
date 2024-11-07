@@ -7,8 +7,7 @@
 }
 
 .imageContainer {
-  width: 600px;
-  height: 600px;
+  @include square(600px);
   overflow: hidden;
   flex-shrink: 0;
 
