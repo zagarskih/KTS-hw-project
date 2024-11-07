@@ -14,7 +14,7 @@
 }
 
 .content {
-  background-color: #ffffff;
+  background-color: $background-elements;
   display: flex;
   flex-direction: column;
   padding: $space-xl $space-xs;
