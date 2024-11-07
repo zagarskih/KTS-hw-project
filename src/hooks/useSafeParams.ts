@@ -14,5 +14,5 @@ export const useSafeParams = <T extends ZodSchema>(schema: T, fallbackUrl: strin
 
   if (result.success) return result.data;
 
-  return result.data ?? null;
+  return null;
 };
