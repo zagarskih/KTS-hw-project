@@ -72,12 +72,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = (props) => {
     <div ref={containerRef} className={classNames(styles.container, className)}>
       <div className={styles.inputWrapper} onClick={toggleDropdown}>
         <Input
-          className={classNames(
-            {
-              [styles.input]: isOpened,
-            },
-            { [styles.input]: value.length === 0 },
-          )}
+          className={classNames((isOpened || value.length === 0) && styles.input)}
           value={search}
           onChange={(value) => setSearch(value)}
           placeholder={getTitle(value)}
