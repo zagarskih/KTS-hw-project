@@ -22,14 +22,14 @@
 
   .title {
     margin-top: 0;
-    margin-bottom: 24px;
+    margin-bottom: $space-m;
   }
 
   .description {
-    margin-bottom: 8px;
+    margin-bottom: $space-xxs;
   }
 
-  margin-bottom: 48px;
+  margin-bottom: $space-xl;
 }
 
 .content {
