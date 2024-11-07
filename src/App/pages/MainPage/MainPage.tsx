@@ -17,10 +17,6 @@ const MainPage: React.FC = () => {
         </Text>
       </div>
       <div className={styles.content}>
-        <div className={styles.searchAndFilter}>
-          <Search />
-          <Filter />
-        </div>
         <Content />
       </div>
     </div>

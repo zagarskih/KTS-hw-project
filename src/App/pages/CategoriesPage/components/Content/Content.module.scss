@@ -3,6 +3,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  // margin-top: $space-l;
 }
 
 .textContainer {
@@ -11,23 +12,24 @@
   margin-bottom: $space-m;
 
   .title {
-    font-size: 32px;
+    font-size: 32px !important;
     margin-right: $space-m;
   }
 }
 
-.searchAndFilter {
+.cardsContainer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: $space-m;
-  margin-bottom: $space-l;
+  gap: 60px;
 }
 
+.card {
+  width: 200px;
+}
 
 @media (max-width: 1340px) {
   .cardsContainer {
     justify-content: baseline;
   }
 }
-

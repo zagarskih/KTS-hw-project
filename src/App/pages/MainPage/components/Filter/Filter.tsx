@@ -3,7 +3,6 @@ import MultiDropdown from './components/MultiDropdown';
 import { getCategories } from 'api/index';
 import { useQuery } from '@tanstack/react-query';
 import { CategoryApi } from 'api/types';
-import styles from './Filter.module.scss';
 
 type Option = {
   key: string;
@@ -35,7 +34,6 @@ const Filter: React.FC = () => {
 
   return (
     <MultiDropdown
-      className={styles.container}
       options={options ? options : []}
       value={selectedOptions}
       onChange={handleChange}

@@ -2,21 +2,20 @@ import React from 'react';
 import { Input, Button } from 'components';
 import styles from './Search.module.scss';
 
-const Search: React.FC = () => {
-  const [searchValue, setSearchValue] = useState('');
+type SearchInputProps = {
+  value: string;
+  onChange: (value: string) => void; // Обновляем тип функции onChange
+};
 
-  const handleChange = (newValue: string) => {
-    setSearchValue(newValue);
-  };
-
+const Search: React.FC<SearchInputProps> = ({ value, onChange }) => {
   return (
     <div className={styles.container}>
       <div className={styles.search}>
         <Input
           className={styles.input}
-          value={searchValue}
+          value={value}
           placeholder="Search product"
-          onChange={handleChange}
+          onChange={(newValue) => onChange(newValue)}
         ></Input>
         <Button className={styles.searchButton}>Find now</Button>
       </div>
