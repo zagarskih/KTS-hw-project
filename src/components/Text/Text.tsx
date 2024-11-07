@@ -19,31 +19,23 @@ export type TextProps = {
   maxLines?: number;
 };
 
-const Text: React.FC<TextProps> = (props) => {
-  const { className, tag, children, maxLines } = props;
-
-  const Tag = tag ?? 'p';
-
-  const color = props.color ?? 'inherit';
-  const view = props.view ?? 'p-14';
+const Text: React.FC<TextProps> = ({
+  className,
+  tag: Tag = 'p',
+  children,
+  maxLines,
+  color = 'inherit',
+  view = 'p-14',
+  weight = '',
+}) => {
 
   const inlineStyle = {
-    fontWeight:
-      props.weight === 'normal'
-        ? 400
-        : props.weight === 'medium'
-        ? 500
-        : props.weight === 'bold'
-        ? 700
-        : '',
+    fontWeight: weight === 'normal' ? 400 : weight === 'medium' ? 500 : weight === 'bold' ? 700 : weight,
     WebkitLineClamp: maxLines,
   };
 
   return (
-    <Tag
-      style={inlineStyle}
-      className={classNames(className, styles.text, styles[color], styles[view])}
-    >
+    <Tag style={inlineStyle} className={classNames(className, styles.text, styles[color], styles[view])}>
       {children}
     </Tag>
   );
