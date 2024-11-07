@@ -31,9 +31,11 @@ const Card: React.FC<CardProps> = (props) => {
   return (
     <div className={classNames(styles.card, className)} onClick={onClick ? onClick : undefined}>
       {image && !imgError ? (
-        <img className={styles.img} src={image} alt="Product" onError={() => setImgError(true)} />
+        <div className={styles.imgContainer}>
+          <img className={styles.img} src={image} alt="Product" onError={() => setImgError(true)} />
+        </div>
       ) : (
-        <Placeholder height={360}/>
+        <Placeholder height={360} />
       )}
       <div className={styles.content}>
         <div className={styles.textContent}>

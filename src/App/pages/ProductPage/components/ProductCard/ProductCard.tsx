@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ProductApi } from 'api/types';
 import { Text, Button, Placeholder } from 'components';
 import styles from './Product.module.scss';
-import Placeholder from 'components/Placeholder';
 
 export type ProductCardProps = {
   product: ProductApi;
