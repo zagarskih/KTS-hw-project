@@ -16,7 +16,7 @@ const CardsContainer: React.FC<CardsContainer> = ({ products }) => {
     <div className={styles.cardsContainer}>
       {products.map((product) => {
         return (
-          <Link key={product.id} to={`/products/${product.id}`} className={styles.link}>
+          <Link key={product.id} to={`/products/${product.id}`} className='link'>
             <Card
               className={styles.card}
               image={product.images[0]}

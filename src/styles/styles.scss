@@ -21,6 +21,13 @@ $space-m: 24px;
 $space-l: 32px;
 $space-xl: 48px;
 
+.link {
+  text-decoration: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+}
+
 @mixin square($size) {
   width: $size;
   height: $size;
