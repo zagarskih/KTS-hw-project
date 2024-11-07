@@ -28,10 +28,6 @@
   display: flex;
   align-items: center;
   color: $text-primary;
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
   cursor: pointer;
   @include font-primary-s14
 }
