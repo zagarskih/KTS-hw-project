@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ProductApi } from 'api/types';
-import Text from 'components/Text';
-import Button from 'components/Button';
+import { Text, Button, Placeholder } from 'components';
 import styles from './Product.module.scss';
 import Placeholder from 'components/Placeholder';
 

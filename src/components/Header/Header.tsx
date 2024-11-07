@@ -2,7 +2,7 @@ import React from 'react';
 import frame from 'assets/icons/frame.svg';
 import bag from 'assets/icons/bag.svg';
 import user from 'assets/icons/user.svg';
-import Text from '../Text';
+import { Text } from 'components';
 import classNames from 'classnames';
 import styles from './Header.module.scss';
 import { Link, useLocation } from 'react-router-dom';

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import Input from 'components/Input';
-import Button from 'components/Button';
+import React from 'react';
+import { Input, Button } from 'components';
 import styles from './Search.module.scss';
 
 const Search: React.FC = () => {

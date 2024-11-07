@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import arrowRight from 'assets/icons/arrowRight.svg';
-import Button from 'components/Button';
+import { Button } from 'components';
 import styles from './GoBack.module.scss';
 
 type GoBackProps = {

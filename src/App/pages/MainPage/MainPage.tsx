@@ -1,8 +1,5 @@
 import React from 'react';
-import Text from 'components/Text';
-import Header from 'components/Header';
-import Search from './components/Search';
-import Filter from './components/Filter';
+import { Header, Text } from 'components';
 import Content from './components/Content';
 import styles from './MainPage.module.scss';
 

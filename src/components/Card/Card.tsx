@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import Text from 'components/Text';
-import Placeholder from '../Placeholder';
+import { Text } from 'components';
+import { Placeholder } from 'components';
 import styles from './Card.module.scss';
 
 export type CardProps = {

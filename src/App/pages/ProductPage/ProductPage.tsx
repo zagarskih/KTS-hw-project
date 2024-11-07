@@ -5,7 +5,7 @@ import { getProduct } from 'api/index';
 import { ProductApi } from 'api/types';
 import RelatedProducts from './components/RelatedProducts';
 import GoBack from './components/GoBack';
-import Header from 'components/Header';
+import { Header } from 'components';
 import ProductCard from './components/ProductCard';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { useSafeParams } from 'hooks/useSafeParams';
