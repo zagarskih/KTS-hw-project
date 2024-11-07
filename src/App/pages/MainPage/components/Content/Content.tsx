@@ -1,15 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Text from 'components/Text';
-import Card from 'components/Card';
-import Button from 'components/Button';
+import React, { useState, useEffect } from 'react';
+import { Text } from 'components';
+import { CardsContainer } from 'components';
+import Search from '../Search';
+import Filter from '../Filter';
 import { ProductApi } from 'api/types';
 import { getProducts } from 'api/index';
 import { useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import styles from './Content.module.scss';
 
 const Content: React.FC = () => {
+  const useQueryParams = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+
+  const navigate = useNavigate();
+  const query = useQueryParams();
+
+  const [searchTerm, setSearchTerm] = useState(query.get('search') || '');
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchTerm) params.set('search', searchTerm);
+    navigate(`?${params.toString()}`);
+  }, [searchTerm, navigate]);
 
   const { data } = useQuery<ProductApi[] | null>({
     queryKey: ['products'],
@@ -18,8 +33,16 @@ const Content: React.FC = () => {
 
   const countOfProducts = data ? data.length : 0;
 
+  const filteredProducts = data
+    ? data.filter((product) => product.title.toLowerCase().includes(searchTerm.toLowerCase()))
+    : [];
+
   return (
     <div className={styles.container}>
+      <div className={styles.searchAndFilter}>
+        <Search value={searchTerm} onChange={setSearchTerm} />
+        <Filter />
+      </div>
       <div className={styles.textContainer}>
         <Text className={styles.title} view="title">
           Total products
@@ -29,21 +52,7 @@ const Content: React.FC = () => {
         </Text>
       </div>
       <div className={styles.cardsContainer}>
-        {data && data.map((product) => {
-          return (
-            <Link key={product.id} to={`/products/${product.id}`} className={styles.link}>
-              <Card
-                className={styles.card}
-                image={product.images[0]}
-                captionSlot={product.category.name}
-                title={product.title}
-                subtitle={product.description}
-                contentSlot={`$${product.price}`}
-                actionSlot={<Button className={styles.addButton}>Add to Cart</Button>}
-              />
-            </Link>
-          );
-        })}
+        <CardsContainer products={filteredProducts} />
       </div>
     </div>
   );

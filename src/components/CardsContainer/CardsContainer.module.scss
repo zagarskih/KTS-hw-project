@@ -1,0 +1,17 @@
+.card {
+  width: 360px;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.link {
+  outline: none;
+  text-decoration: none;
+  background: transparent;
+  color: inherit;
+}
