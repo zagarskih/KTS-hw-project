@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Text } from 'components';
 import CategoryCard from '../CategoryCard';
 import rootStore from 'stores/instanse';
@@ -37,14 +37,14 @@ const Content: React.FC = observer(() => {
         {categories &&
           categories.map((category) => {
             return (
-              // <Link key={category.id} to={`/categories/${category.id}`} className={styles.link}>
+              <Link key={category.id} to={{pathname: '/products', search: `?categories=%5B${category.id}%5D`}} className={styles.link}>
               <CategoryCard
                 key={category.id}
                 className={styles.card}
                 image={category.image}
                 name={category.name}
               />
-              // </Link>
+              </Link>
             );
           })}
       </div>
