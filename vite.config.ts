@@ -21,6 +21,7 @@ export default defineConfig({
       helpers: path.resolve(__dirname, './src/helpers'),
       styles: path.resolve(__dirname, './src/styles'),
       pages: path.resolve(__dirname, './src/pages'),
+      stores: path.resolve(__dirname, './src/stores'),
     },
   },
 });

@@ -1,4 +1,4 @@
-@import 'styles/styles.scss';
+@use "styles/styles" as *;
 
 .container {
   display: flex;
@@ -25,7 +25,7 @@
 }
 
 .card {
-  width: 200px;
+  width: 360px;
 }
 
 @media (max-width: 1340px) {

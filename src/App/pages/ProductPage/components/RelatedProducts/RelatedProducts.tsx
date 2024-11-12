@@ -1,9 +1,8 @@
-import React from 'react';
-import { getProductsByCategory } from 'api';
+import React, { useEffect } from 'react';
 import { Text } from 'components';
 import { CardsContainer } from 'components';
-import { ProductApi } from 'api/types';
-import { useQuery } from '@tanstack/react-query';
+import { observer } from 'mobx-react-lite';
+import rootStore from 'stores/instanse';
 import styles from './RelatedProducts.module.scss';
 
 type RelatedProductProps = {
@@ -11,19 +10,31 @@ type RelatedProductProps = {
   productID: number;
 };
 
-const RelatedProducts: React.FC<RelatedProductProps> = (props) => {
+const RelatedProducts: React.FC<RelatedProductProps> = observer((props) => {
   const { categoryId, productID } = props;
+  const { productsStore } = rootStore;
+  const {
+    productsByCategory,
+    fetchProductsByCategory,
+    isLoadingProductsByCategory,
+  } = productsStore;
 
-  const { data } = useQuery<ProductApi[] | null>({
-    queryKey: ['productsByCategory', { id: categoryId }],
-    queryFn: () => getProductsByCategory({ id: categoryId }),
-  });
+  useEffect(() => {
+    if (categoryId) {
+      fetchProductsByCategory(categoryId);
+    }
+  }, [categoryId, fetchProductsByCategory]);
 
-  const relatedProducts = data?.filter((product) => product.id !== productID).slice(0, 3) ?? null;
+  if (isLoadingProductsByCategory) return '...loading';
 
-  return relatedProducts?.length === 0 ? (
-    <></>
-  ) : (
+  if (productsByCategory?.length === 0) return null;
+
+  const relatedProducts =
+    productsByCategory
+      ?.filter((product) => product.id !== productID)
+      .slice(0, 3) ?? null;
+
+  return (
     <div>
       <Text className={styles.title} view="title">
         Related Items
@@ -31,6 +42,6 @@ const RelatedProducts: React.FC<RelatedProductProps> = (props) => {
       <CardsContainer products={relatedProducts} />
     </div>
   );
-};
+});
 
 export default RelatedProducts;

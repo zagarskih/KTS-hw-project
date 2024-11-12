@@ -29,6 +29,7 @@
       "helpers/*": ["helpers/*"],
       "styles/*": ["styles/*"],
       "pages/*": ["styles/*"],
+      "stores/*": ["stores/*"]
     }
   },
   "include": ["src"]

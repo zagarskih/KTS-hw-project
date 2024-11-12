@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import { Text } from 'components';
 import CategoryCard from '../CategoryCard';
-import { CategoryApi } from 'api/types';
-import { getCategories } from 'api/index';
-import { useQuery } from '@tanstack/react-query';
+import rootStore from 'stores/instanse';
+import { observer } from 'mobx-react-lite';
 
 import styles from './Content.module.scss';
 
-const Content: React.FC = () => {
+const Content: React.FC = observer(() => {
+  const { categories, fetchCategories, isLoading } = rootStore.categoriesStore;
 
-  const { data } = useQuery<CategoryApi[] | null>({
-    queryKey: ['categories'],
-    queryFn: getCategories,
-  });
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
-  const countOfCategories = data ? data.length : 0;
+  if (isLoading) return '...loading';
 
-  const fiveCategories = data?.slice(0, 5);
+  const countOfCategories = categories ? categories.length : 0;
 
   return (
     <div className={styles.container}>
@@ -25,25 +24,32 @@ const Content: React.FC = () => {
         <Text className={styles.title} view="title">
           Total categories
         </Text>
-        <Text className={styles.counter} view="p-20" color="accent" weight="bold">
+        <Text
+          className={styles.counter}
+          view="p-20"
+          color="accent"
+          weight="bold"
+        >
           {countOfCategories}
         </Text>
       </div>
       <div className={styles.cardsContainer}>
-        {fiveCategories && fiveCategories.map((category) => {
-          return (
-            // <Link key={category.id} to={`/categories/${category.id}`} className={styles.link}>
+        {categories &&
+          categories.map((category) => {
+            return (
+              // <Link key={category.id} to={`/categories/${category.id}`} className={styles.link}>
               <CategoryCard
+                key={category.id}
                 className={styles.card}
                 image={category.image}
                 name={category.name}
               />
-            // </Link>
-          );
-        })}
+              // </Link>
+            );
+          })}
       </div>
     </div>
   );
-};
+});
 
 export default Content;

@@ -1,4 +1,4 @@
-@import 'styles/styles.scss';
+@use "styles/styles" as *;
 
 .card {
   font-size: 0;
