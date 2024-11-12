@@ -21,9 +21,7 @@ const ProductPage: React.FC = observer(() => {
   const params = useSafeParams(paramsSchema, '/');
   const productId = params?.id;
 
-  const [selectedProduct, setSelectedProduct] = useState<ProductApi | null>(
-    null,
-  );
+  const [selectedProduct, setSelectedProduct] = useState<ProductApi | null>(null);
 
   const { fetchProduct, isLoadingProduct } = productStore;
 
@@ -45,16 +43,13 @@ const ProductPage: React.FC = observer(() => {
 
   return (
     <div className={styles.root}>
-      <Header className={styles.header} />
+      <Header className="header" />
       <Link className={styles.goBackLink} to="/products">
         <GoBack className={styles.goBack} />
       </Link>
       <div className={styles.container}>
         <ProductCard product={selectedProduct} />
-        <RelatedProducts
-          categoryId={selectedProduct.category.id}
-          productID={selectedProduct.id}
-        />
+        <RelatedProducts categoryId={selectedProduct.category.id} productID={selectedProduct.id} />
       </div>
     </div>
   );

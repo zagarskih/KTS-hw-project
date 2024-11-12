@@ -6,7 +6,7 @@ import styles from './MainPage.module.scss';
 const MainPage: React.FC = () => {
   return (
     <div className={styles.root}>
-      <Header className={styles.header} />
+      <Header className="header" />
       <div className={styles.text}>
         <Text className={styles.title} view="title">
           Products

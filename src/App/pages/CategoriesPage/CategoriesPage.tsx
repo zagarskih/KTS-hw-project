@@ -6,7 +6,7 @@ import styles from './CategoriesPage.module.scss';
 const CategoriesPage: React.FC = () => {
   return (
     <div className={styles.root}>
-      <Header className={styles.header} />
+      <Header className="header" />
 
       <div className={styles.text}>
         <Text className={styles.title} view="title">
@@ -17,7 +17,7 @@ const CategoriesPage: React.FC = () => {
         </Text>
       </div>
       <div className={styles.content}>
-      <Content />
+        <Content />
       </div>
     </div>
   );
