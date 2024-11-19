@@ -6,15 +6,16 @@ import styles from './GoBack.module.scss';
 
 type GoBackProps = {
   className: string;
+  children: string;
 }
 
 const GoBack: React.FC<GoBackProps> = (props) => {
-  const { className } = props;
+  const { className, children } = props;
 
   return (
     <div className={classNames(styles.container, className)}>
       <img className={styles.icon} src={arrowRight} alt="arrow" />
-      <Button className={styles.button}>Go back</Button>
+      <Button className={styles.button}>{children}</Button>
     </div>
   );
 };

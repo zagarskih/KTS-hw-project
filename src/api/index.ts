@@ -1,4 +1,4 @@
-import { transport } from 'helpers/transport';
+import { transport } from 'api/transport';
 import { ProductApi } from './types';
 import { CategoryApi } from './types';
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
 import styles from './Input.module.scss';
 
@@ -11,7 +11,7 @@ export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
   afterSlot?: React.ReactNode;
 };
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
+const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const { className, value, onChange, afterSlot, placeholder, disabled, ...inputProps } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

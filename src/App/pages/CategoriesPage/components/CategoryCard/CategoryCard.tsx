@@ -10,36 +10,23 @@ export type CategoryCardProps = {
   onClick?: React.MouseEventHandler;
 };
 
-const CategoryCardv2: React.FC<CategoryCardProps> = (props) => {
+const CategoryCard: React.FC<CategoryCardProps> = (props) => {
   const { className, image, name, onClick } = props;
 
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div
-      className={classNames(styles.card, className)}
-      onClick={onClick ? onClick : undefined}
-    >
+    <div className={classNames(styles.card, className)} onClick={onClick}>
       {image && !imgError ? (
         <div className={styles.imgContainer}>
-          <img
-            className={styles.img}
-            src={image}
-            alt="Category"
-            onError={() => setImgError(true)}
-          />
+          <img className={styles.img} src={image} alt="Category" onError={() => setImgError(true)} />
         </div>
       ) : (
         <Placeholder height={260} />
       )}
       <div className={styles.content}>
         <div className={styles.textContent}>
-          <Text
-            className={className}
-            view="p-20"
-            weight={'medium'}
-            maxLines={2}
-          >
+          <Text className={className} view="p-20" weight={'medium'} maxLines={2}>
             {name}
           </Text>
         </div>
@@ -48,4 +35,4 @@ const CategoryCardv2: React.FC<CategoryCardProps> = (props) => {
   );
 };
 
-export default CategoryCardv2;
+export default React.memo(CategoryCard);

@@ -1,0 +1,80 @@
+@use "styles/styles" as *;
+
+.container {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+  max-width: 739px;
+  min-width: 639px;
+  background-color: $background-elements;
+  padding: $space-s $space-l;
+  transition: max-width 0.3s ease;
+
+  @media (max-width: 880px) {
+    width: 100%;
+    max-width: 639px;
+  }
+}
+
+.imgContainer {
+  @include square(80px);
+  background-color: $img-placeholder;
+  flex-shrink: 0; 
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-xs;
+  margin: 0 $space-m;
+
+  width: 100%;
+  max-width: 330px;
+  flex-grow: 1;
+  transition: max-width 0.3s ease;
+
+  @media (max-width: 880px) {
+    width: 100%;
+    max-width: 230px;
+  }
+}
+
+.counter {
+  margin-left: $space-m;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 120px;
+  border: 1px solid $border;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 0 $space-xxs;
+  flex-shrink: 0;
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete {
+  margin-left: $space-xl;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}

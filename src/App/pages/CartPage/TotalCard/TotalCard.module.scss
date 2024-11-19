@@ -1,0 +1,49 @@
+@use "styles/styles" as *;
+
+.container {
+  height: auto;
+  width: 100%;
+  max-width: 350px;
+  background-color: $background-elements;
+  padding: $space-l;
+}
+
+.title {
+  margin-bottom: $space-m;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-xxs;
+}
+
+.horizontalLine {
+  border: none;
+  height: 2px;            
+  background-color: $border;
+  width: 100%;
+  margin: $space-s 0;
+}
+
+.checkoutButton {
+  margin-top: $space-l;
+  width: 100%;
+}
+
+.promocode {
+  display: flex;
+  justify-content: space-between;
+  margin: $space-s 0;
+}
+
+.input {
+  border: 1.5px solid $border;
+  width: 220px;
+}

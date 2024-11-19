@@ -1,13 +1,15 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import { ProductApi } from 'api/types';
-import rootStore from './instanse';
+import rootStore from './instance';
 import { getProduct } from 'api';
+import { ILocalStore } from '../hooks/ILocalStore';
 
 const { productsStore } = rootStore;
 
-class ProductStore {
+export default class ProductStore implements ILocalStore {
   product: ProductApi | null = null;
   isLoadingProduct: boolean = false;
+  productRequestAC: AbortController | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,23 +17,33 @@ class ProductStore {
 
   fetchProduct = async (id: number) => {
     const existingProduct = productsStore.getProductById(id);
+
     if (existingProduct) {
       this.product = existingProduct;
-      return this.product;
+      return existingProduct;
     }
 
+    if (this.productRequestAC) {
+      this.productRequestAC.abort();
+    }
+    this.productRequestAC = new AbortController();
     this.isLoadingProduct = true;
+
     const data = await getProduct({ id });
     runInAction(() => {
       this.product = data;
-      if (data) {
-        productsStore.products.set(data.id, data);
-        this.isLoadingProduct = false;
-      }
     });
+    this.productRequestAC = null;
+    this.isLoadingProduct = false;
     return data;
   };
-}
 
-const productStore = new ProductStore();
-export default productStore;
+  destroy() {
+    if (this.productRequestAC) {
+      this.productRequestAC.abort();
+      this.productRequestAC = null;
+    }
+    this.product = null;
+    this.isLoadingProduct = false;
+  }
+}

@@ -17,13 +17,11 @@ export const transport = async <ResponseT>(
   );
 
   try {
-    const urlInstance = new URL(`${BASE_URL}${url}?${searchParams}`);
-    const response = await axios[options?.method ?? 'get'](
-      urlInstance.toString(),
-      {
-        signal: options?.signal,
-      },
-    );
+    const urlInstance = new URL(`${BASE_URL}${url}`);
+    const response = await axios[options?.method ?? 'get'](urlInstance.toString(), {
+      signal: options?.signal,
+      params: options?.searchParams,
+    });
     return response.data as ResponseT;
   } catch {
     return null;

@@ -7,7 +7,6 @@ const CategoriesPage: React.FC = () => {
   return (
     <div className={styles.root}>
       <Header className="header" />
-
       <div className={styles.text}>
         <Text className={styles.title} view="title">
           Categories

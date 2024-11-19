@@ -1,0 +1,29 @@
+@use "styles/styles" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 1300px) {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.products {
+  margin-left: 100px;
+  margin-top: $space-l;
+  margin-right: $space-m;
+}
+
+.totalCard {
+  margin-top: $space-l;
+
+  @media (min-width: 1300px) {
+    margin-right: 100px;
+  } 
+
+  @media (max-width: 1300px) {
+    margin-left: 100px;
+  }
+}
