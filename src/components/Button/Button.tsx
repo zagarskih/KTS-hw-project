@@ -4,11 +4,8 @@ import classNames from 'classnames';
 import styles from './Button.module.scss';
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  /** Состояние загрузки */
   loading?: boolean;
-  /** Текст кнопки */
   children: React.ReactNode;
-  /** Обработчик клика */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -17,7 +14,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!disabled && !loading && onClick) {
-      onClick(event); // Вызовите переданный обработчик клика
+      onClick(event);
     }
   };
 

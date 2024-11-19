@@ -9,10 +9,18 @@
   display: flex;
   align-items: center;
   margin-bottom: $space-m;
+}
 
-  .title {
-    font-size: 32px;
-    margin-right: $space-m;
+.loadPrevButton {
+  margin-left: $space-s;
+  background-color: $background;
+  border: 0 solid $button-border;
+  cursor: pointer;
+  color: $text-accent;
+  font-size: 16px;
+
+  &:hover {
+    color: $text-secondary;
   }
 }
 
@@ -21,13 +29,6 @@
   flex-direction: column;
   justify-content: space-between;
   gap: $space-m;
-  margin-bottom: $space-l;
-}
-
-
-@media (max-width: 1340px) {
-  .cardsContainer {
-    justify-content: baseline;
-  }
+  margin: 0 $space-s $space-l;
 }
 

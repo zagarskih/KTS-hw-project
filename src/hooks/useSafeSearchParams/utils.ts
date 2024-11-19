@@ -1,14 +1,15 @@
 import { z } from 'zod';
 
-export const serializeSearchParams = (
-  value: Record<string, unknown> | null,
-) => {
+const checkIsPrimitive = (v: unknown) => typeof v === 'string' || typeof v === 'number';
+
+export const serializeSearchParams = (value: Record<string, unknown> | null) => {
   const serialized: Record<string, string> = {};
 
   Object.entries(value ?? {}).forEach((entry) => {
     const [key, value] = entry;
     try {
-      serialized[key] = JSON.stringify(value);
+      const isPrimitive = checkIsPrimitive(value);
+      serialized[key] = isPrimitive ? String(value) : JSON.stringify(value);
     } catch {
       // Do nothing because can't searialize
     }
@@ -17,15 +18,13 @@ export const serializeSearchParams = (
   return new URLSearchParams(serialized);
 };
 
-export const parseSearchParams = <Schema extends z.ZodSchema>(
-  searchParams: URLSearchParams,
-  schema: Schema,
-) => {
+export const parseSearchParams = <Schema extends z.ZodSchema>(searchParams: URLSearchParams, schema: Schema) => {
   const result: Record<string, unknown> = {};
 
   searchParams.forEach((value, key) => {
     try {
-      result[key] = JSON.parse(value);
+      const parsed = JSON.parse(value);
+      result[key] = typeof parsed === 'number' ? value : parsed;
     } catch {
       result[key] = value;
     }

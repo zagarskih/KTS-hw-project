@@ -20,24 +20,22 @@
   border: 0;
   overflow-y: auto;
   margin-top: 8px;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+  @include shadow;
 }
 
 .item {
   padding: 14px 12px;
-  display: flex;
-  align-items: center;
   color: $text-primary;
   cursor: pointer;
-  @include font-primary-s14
-}
-
-.item__selected {
-  color: $text-accent;
+  @include font-primary-s14;
 
   &:hover {
     color: $text-secondary;
   }
+}
+
+.itemSelected {
+  color: $text-accent;
 }
 
 .icon {

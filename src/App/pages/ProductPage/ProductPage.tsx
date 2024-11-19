@@ -1,15 +1,16 @@
 import { z } from 'zod';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RelatedProducts from './components/RelatedProducts';
-import GoBack from './components/GoBack';
+import GoBack from 'components/GoBack';
 import { Header } from 'components';
 import ProductCard from './components/ProductCard';
-import { ProductApi } from 'api/types';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { useSafeParams } from 'hooks/useSafeParams';
 import { observer } from 'mobx-react-lite';
-import productStore from 'stores/ProductStore';
+import ProductStore from 'stores/ProductStore';
+import { useLocalStore } from 'hooks/useLocalStore';
+import RoutesConfig from 'routes';
 
 import styles from './ProductPage.module.scss';
 
@@ -18,38 +19,33 @@ const paramsSchema = z.object({
 });
 
 const ProductPage: React.FC = observer(() => {
-  const params = useSafeParams(paramsSchema, '/');
+  const params = useSafeParams(paramsSchema, RoutesConfig.home);
   const productId = params?.id;
 
-  const [selectedProduct, setSelectedProduct] = useState<ProductApi | null>(null);
-
-  const { fetchProduct, isLoadingProduct } = productStore;
+  const productStore = useLocalStore(() => new ProductStore());
+  const { product, fetchProduct, isLoadingProduct } = productStore;
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const loadProduct = async () => {
-      if (productId !== undefined) {
-        const product = await fetchProduct(productId);
-        setSelectedProduct(product || null);
-      }
-    };
-    loadProduct();
-  }, [productId, fetchProduct]);
+    if (productId !== undefined) {
+      fetchProduct(productId);
+    }
+  }, [productId, productStore]);
 
   if (isLoadingProduct) return '...loading';
 
-  if (!selectedProduct) return <NotFoundPage />;
+  if (!product) return <NotFoundPage />;
 
   return (
     <div className={styles.root}>
       <Header className="header" />
-      <Link className={styles.goBackLink} to="/products">
-        <GoBack className={styles.goBack} />
+      <Link className="link" to={RoutesConfig.products.mask}>
+        <GoBack className="goBack" children="Go back" />
       </Link>
       <div className={styles.container}>
-        <ProductCard product={selectedProduct} />
-        <RelatedProducts categoryId={selectedProduct.category.id} productID={selectedProduct.id} />
+        <ProductCard product={product} />
+        <RelatedProducts categoryId={product.category.id} productID={product.id} />
       </div>
     </div>
   );

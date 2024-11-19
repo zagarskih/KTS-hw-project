@@ -6,6 +6,8 @@ import { Text } from 'components';
 import classNames from 'classnames';
 import styles from './Header.module.scss';
 import { Link, useLocation } from 'react-router-dom';
+import { tabsEntries } from 'config/tabs';
+import RoutesConfig from 'routes';
 
 type HeaderProps = {
   className?: string;
@@ -15,34 +17,21 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const { className } = props;
   const location = useLocation();
 
-  const tabs = {
-    products: 'Products',
-    categories: 'Categories',
-    about: 'About us',
-  };
-
   return (
     <div className={classNames(className, styles.container)}>
-      <Link className="link" to="/products">
+      <Link className="link" to={RoutesConfig.products.mask}>
         <img src={frame} alt="frame" />
       </Link>
 
       <div className={styles.textContainer}>
-        {Object.entries(tabs).map(([key, value]) => {
+        {tabsEntries.map(([key, value]) => {
           return (
             <Link key={key} className="link" to={`/${key}`}>
               <div className={styles.textWrapper}>
                 <Text
                   view="p-18"
-                  className={classNames(
-                    location.pathname.startsWith(`/${key}`) &&
-                      styles.highlightedtext,
-                  )}
-                  color={
-                    location.pathname.startsWith(`/${key}`)
-                      ? 'accent'
-                      : 'primary'
-                  }
+                  className={classNames(location.pathname.startsWith(`/${key}`) && styles.highlightedtext)}
+                  color={location.pathname.startsWith(`/${key}`) ? 'accent' : 'primary'}
                 >
                   {value}
                 </Text>
@@ -53,8 +42,12 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
       </div>
 
       <div className={styles.icons}>
-        <img className={styles.bag} src={bag} alt="bag" />
-        <img className={styles.user} src={user} alt="user" />
+        <Link className="link" to={RoutesConfig.cart}>
+          <img className={styles.bag} src={bag} alt="bag" />
+        </Link>
+        <Link className="link" to={RoutesConfig.signup}>
+          <img className={styles.user} src={user} alt="user" />
+        </Link>
       </div>
     </div>
   );

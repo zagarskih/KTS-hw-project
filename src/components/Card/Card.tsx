@@ -25,7 +25,6 @@ export type CardProps = {
 
 const Card: React.FC<CardProps> = (props) => {
   const { className, image, title, captionSlot, subtitle, contentSlot, actionSlot, onClick } = props;
-
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -41,7 +40,7 @@ const Card: React.FC<CardProps> = (props) => {
         <div className={styles.textContent}>
           {captionSlot && (
             <Text className={className} view="p-14" weight="medium" color="secondary">
-              {captionSlot}
+              {captionSlot} 
             </Text>
           )}
           <Text className={className} view="p-20" weight={'medium'} maxLines={2}>

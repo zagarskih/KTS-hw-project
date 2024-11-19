@@ -1,54 +1,92 @@
-import { makeAutoObservable, observable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { ProductApi } from 'api/types';
 import { getProducts, getProductsByCategory } from 'api';
 
-type FetchProductArgs = {
+type FetchPrevProductsArgs = {
   search?: string;
   categoryId?: number;
   limit: number;
+  offset: number;
+};
+
+type FetchNextProductsArgs = {
+  search?: string;
+  categoryId?: number;
+  limit: number;
+  offset: number;
 };
 
 export default class ProductsStore {
-  products = observable.map<number, ProductApi>();
+  products: Map<number, ProductApi> = new Map();
   hasMoreProducts: boolean = true;
-  productsRequestAC: AbortController | null = null;
+  prevProductsRequestAC: AbortController | null = null;
+  nextProductsRequestAC: AbortController | null = null;
 
   productsByCategory: ProductApi[] | null = null;
   isLoadingProductsByCategory: boolean = false;
+
+  isLoadingPrevProducts = false;
+  canLoadPrevProducts = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  fetchMoreProducts = async (args: FetchProductArgs) => {
-    if (this.productsRequestAC) {
-      this.productsRequestAC.abort();
-      this.productsRequestAC = null;
-    }
+  private readonly getOffsetForPrevProducts = (limit: number, currentOffset: number) => {
+    const tailBatchSizeIfNotFull = this.products.size % limit;
+    const tailBatchSize = tailBatchSizeIfNotFull === 0 ? limit : tailBatchSizeIfNotFull;
+    return currentOffset + tailBatchSize - this.products.size - limit;
+  };
+
+  private readonly hasOffsetForPrevProducts = (limit: number, currentOffset: number) => {
+    const offset = this.getOffsetForPrevProducts(limit, currentOffset);
+    return offset > -limit;
+  };
+
+  fetchPrevProducts = async (args: FetchPrevProductsArgs) => {
+    this.prevProductsRequestAC?.abort();
 
     const { search, categoryId, limit } = args ?? {};
 
-    this.productsRequestAC = new AbortController();
+    this.nextProductsRequestAC = new AbortController();
+    this.isLoadingPrevProducts = true;
 
     const data = await getProducts({
       search,
       categoryId,
-      offset: this.products.size,
+      offset: Math.max(this.getOffsetForPrevProducts(args.limit, args.offset), 0),
       limit,
-      signal: this.productsRequestAC.signal,
+      signal: this.nextProductsRequestAC.signal,
     });
 
     runInAction(() => {
-      this.productsRequestAC = null;
+      this.isLoadingPrevProducts = false;
+      if (!data) return;
+      this.products = new Map([...data.map((p) => [p.id, p] as const), ...this.products]);
+      this.canLoadPrevProducts = this.hasOffsetForPrevProducts(args.limit, args.offset);
+    });
+  };
+
+  fetchNextProducts = async (args: FetchNextProductsArgs) => {
+    this.nextProductsRequestAC?.abort();
+
+    const { search, categoryId, limit } = args ?? {};
+
+    this.nextProductsRequestAC = new AbortController();
+
+    const data = await getProducts({
+      search,
+      categoryId,
+      offset: args.offset,
+      limit,
+      signal: this.nextProductsRequestAC.signal,
     });
 
-    if (!data) return;
-
     runInAction(() => {
+      if (!data) return;
       this.hasMoreProducts = data.length === limit;
-      data.forEach((product) => {
-        this.products.set(product.id, product);
-      });
+      this.products = new Map([...this.products, ...data.map((p) => [p.id, p] as const)]);
+      this.canLoadPrevProducts = this.hasOffsetForPrevProducts(args.limit, args.offset);
     });
   };
 
@@ -58,13 +96,12 @@ export default class ProductsStore {
   };
 
   getProductById = (id: number): ProductApi | undefined => {
-    return this.products.get(id);
+    const singleProduct = this.products.get(id);
+    return singleProduct ? singleProduct : undefined;
   };
 
   fetchProductsByCategory = async (id: number) => {
-    const productsInCategory = Array.from(this.products.values()).filter(
-      (product) => product.category.id === id,
-    );
+    const productsInCategory = Array.from(this.products.values()).filter((product) => product.category.id === id);
 
     if (productsInCategory.length > 3) {
       runInAction(() => {
@@ -82,9 +119,9 @@ export default class ProductsStore {
       data?.forEach((product) => {
         if (!this.products.has(product.id)) {
           this.products.set(product.id, product);
-          this.isLoadingProductsByCategory = false;
         }
       });
+      this.isLoadingProductsByCategory = false;
     });
   };
 }
