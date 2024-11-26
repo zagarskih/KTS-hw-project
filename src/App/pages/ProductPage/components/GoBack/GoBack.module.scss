@@ -1,4 +1,4 @@
-@import 'styles/styles.scss';
+@use "styles/styles" as *;
 
 .container {
   height: 48px;

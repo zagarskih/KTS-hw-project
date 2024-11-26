@@ -1,3 +1,5 @@
+@use "styles/styles" as *;
+
 .card {
   width: 360px;
 }
@@ -7,4 +9,5 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 30px;
+  padding-bottom: $space-m;
 }

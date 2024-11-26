@@ -1,9 +1,8 @@
 import React from 'react';
 import { Header } from 'components';
-import styles from './AboutPage.module.scss';
 
 const AboutPage: React.FC = () => {
-  return <Header className={styles.header} />;
+  return <Header className="header" />;
 };
 
 export default AboutPage;

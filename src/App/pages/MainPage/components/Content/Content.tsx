@@ -1,61 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Text } from 'components';
 import { CardsContainer } from 'components';
-import Search from '../Search';
-import Filter from '../Filter';
-import { ProductApi } from 'api/types';
-import { getProducts } from 'api/index';
-import { useQuery } from '@tanstack/react-query';
-import { useLocation, useNavigate } from 'react-router-dom';
+import rootStore from 'stores/instanse';
+import Search from './components/Search';
+import Filter from './components/Filter';
+import { z } from 'zod';
+import { useSafeSearchParams } from 'hooks/useSafeSearchParams';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import styles from './Content.module.scss';
 
-const Content: React.FC = () => {
-  const useQueryParams = () => {
-    return new URLSearchParams(useLocation().search);
-  };
+const searchParamsSchema = z.object({
+  search: z.string().optional(),
+  categories: z.array(z.number()).optional(),
+});
 
-  const navigate = useNavigate();
-  const query = useQueryParams();
+const LIMIT = 9;
 
-  const [searchTerm, setSearchTerm] = useState(query.get('search') || '');
+const Content: React.FC = observer(() => {
+  const { productsStore } = rootStore;
+  const { products, fetchMoreProducts, resetProducts, hasMoreProducts } =
+    productsStore;
+
+  const [searchParams, setSearchParams] =
+    useSafeSearchParams(searchParamsSchema);
+
+  const [searchDraft, setSearchDraft] = useState(searchParams?.search ?? '');
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchTerm) params.set('search', searchTerm);
-    navigate(`?${params.toString()}`);
-  }, [searchTerm, navigate]);
+    if (!searchParams?.search) setSearchDraft('');
+  }, [searchParams?.search, setSearchDraft]);
 
-  const { data } = useQuery<ProductApi[] | null>({
-    queryKey: ['products'],
-    queryFn: getProducts,
-  });
+  const next = useCallback(
+    async () =>
+      fetchMoreProducts({
+        search: searchParams?.search,
+        categoryId: searchParams?.categories?.[0],
+        limit: LIMIT,
+      }),
+    [searchParams.search, searchParams.categories],
+  );
 
-  const countOfProducts = data ? data.length : 0;
+  useEffect(() => {
+    resetProducts();
+    next();
+  }, [next]);
 
-  const filteredProducts = data
-    ? data.filter((product) => product.title.toLowerCase().includes(searchTerm.toLowerCase()))
-    : [];
+  const onSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setSearchParams((prev) => {
+      const { search, ...restPrev } = prev;
+
+      if (!searchDraft) return restPrev;
+      return {
+        ...restPrev,
+        search: searchDraft,
+      };
+    });
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchDraft(value);
+  };
+
+  const countOfProducts = products.size;
 
   return (
     <div className={styles.container}>
       <div className={styles.searchAndFilter}>
-        <Search value={searchTerm} onChange={setSearchTerm} />
-        <Filter />
+        <form onSubmit={onSearch}>
+          <Search value={searchDraft} onChange={handleSearchChange} />
+        </form>
+        <Filter
+          onChange={(ids) => {
+            setSearchParams((prev) => ({
+              ...prev,
+              categories: ids,
+            }));
+          }}
+          value={searchParams?.categories ?? []}
+        />
       </div>
       <div className={styles.textContainer}>
         <Text className={styles.title} view="title">
           Total products
         </Text>
-        <Text className={styles.counter} view="p-20" color="accent" weight="bold">
+        <Text
+          className={styles.counter}
+          view="p-20"
+          color="accent"
+          weight="bold"
+        >
           {countOfProducts}
         </Text>
       </div>
-      <div className={styles.cardsContainer}>
-        <CardsContainer products={filteredProducts} />
-      </div>
+
+      <InfiniteScroll
+        dataLength={products.size}
+        next={next}
+        hasMore={hasMoreProducts}
+        loader={<div>Loading more products...</div>}
+      >
+        <div className={styles.cardsContainer}>
+          <CardsContainer products={Array.from(products.values())} />
+        </div>
+      </InfiniteScroll>
     </div>
   );
-};
+});
 
 export default Content;

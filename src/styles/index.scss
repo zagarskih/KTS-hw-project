@@ -1,8 +1,8 @@
-@import 'styles/styles.scss';
+@use "styles/styles" as *;
 @import "styles/Roboto/fonts.css";
 
 :root {
-  font-family: 'Roboto', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;

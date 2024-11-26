@@ -23,19 +23,26 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
   return (
     <div className={classNames(className, styles.container)}>
-      <Link className='link' to="/products">
+      <Link className="link" to="/products">
         <img src={frame} alt="frame" />
       </Link>
 
       <div className={styles.textContainer}>
         {Object.entries(tabs).map(([key, value]) => {
           return (
-            <Link className='link' to={`/${key}`}>
-              <div key={key} className={styles.textWrapper}>
+            <Link key={key} className="link" to={`/${key}`}>
+              <div className={styles.textWrapper}>
                 <Text
                   view="p-18"
-                  className={classNames(location.pathname.startsWith(`/${key}`) && styles.highlightedtext)}
-                  color={location.pathname.startsWith(`/${key}`) ? 'accent' : 'primary'}
+                  className={classNames(
+                    location.pathname.startsWith(`/${key}`) &&
+                      styles.highlightedtext,
+                  )}
+                  color={
+                    location.pathname.startsWith(`/${key}`)
+                      ? 'accent'
+                      : 'primary'
+                  }
                 >
                   {value}
                 </Text>
