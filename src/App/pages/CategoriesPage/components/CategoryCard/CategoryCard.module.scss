@@ -1,0 +1,32 @@
+@import 'styles/styles.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.textContent {
+  margin-top: $space-l;
+}
+
+.title {
+  font-size: 28px !important;
+  line-height: 32px !important;
+  cursor: pointer;
+}

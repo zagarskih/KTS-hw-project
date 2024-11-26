@@ -1,0 +1,55 @@
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+$brand: #518581;
+$brand-active: #487773;
+$brand-hover: #86aaa7;
+$button-primary-bg-disabled: #d9d9d9;
+$background: #fafafa;
+$background-elements: #ffffff;
+$border: #f3f3f3;
+$button-border: #afadb5;
+$img-placeholder: #d9d9d9;
+$input-placeholder: #afadb5;
+$text-accent: #518581;
+$text-primary: #000000;
+$text-secondary: #afadb5;
+$icon-primary: #afadb5;
+$icon-secondary: #afadb5;
+
+$space-xxs: 8px;
+$space-xs: 12px;
+$space-s: 16px;
+$space-m: 24px;
+$space-l: 32px;
+$space-xl: 48px;
+
+.link {
+  text-decoration: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin font-primary-s14 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin font-primary-s16 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}

@@ -1,0 +1,19 @@
+@import 'styles/styles.scss';
+
+.icon {
+  &.primary {
+    color: $icon-primary;
+  }
+
+  &.secondary {
+    color: $icon-secondary;
+  }
+
+  &.accent {
+    color: $brand;
+  }
+
+  &.inherit {
+    color: inherit;
+  }
+}

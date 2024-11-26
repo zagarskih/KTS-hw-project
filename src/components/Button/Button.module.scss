@@ -1,0 +1,33 @@
+@import 'styles/styles.scss';
+
+.button {
+  align-items: center;
+  justify-content: center;
+  padding: $space-s $space-l;
+  background-color: $brand;
+  border: 0;
+  height: 52px;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background-color: $brand-hover;
+  }
+
+  &:active:not(:disabled) {
+    background-color: $brand-active;
+  }
+
+  &.disabled {
+    background-color: $button-primary-bg-disabled;
+  }
+}
+
+.loader {
+  color: inherit;
+  margin-right: $space-xxs;
+}

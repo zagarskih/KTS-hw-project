@@ -1,0 +1,64 @@
+@import 'styles/styles.scss';
+
+.text {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  margin: 0;
+
+  &.primary {
+    color: $text-primary;
+  }
+
+  &.secondary {
+    color: $text-secondary;
+  }
+
+  &.accent {
+    color: $text-accent;
+  }
+
+  &.inherit {
+    color: inherit;
+  }
+
+  &.title {
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 48px;
+  }
+
+  &.button {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+    cursor: pointer;
+  }
+
+  &.p-20 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  &.p-18 {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  &.p-16 {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  &.p-14 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
