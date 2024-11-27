@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { Header } from 'components/Header';
-import clothes from 'assets/clothes.jpg';
+import clothes from 'assets/images/clothes.jpg';
 import frame from 'assets/icons/frame.svg';
-import { Input } from 'components/Input';
-import { Text } from 'components/Text';
-import { Button } from 'components/Button';
+import { Header, Input, Text, Button } from 'components';
+import { useNavigate } from 'react-router-dom';
+import rootStore from 'stores/instance';
 import RoutesConfig from 'routes';
+import { Link } from 'react-router-dom';
+import useMediaQuery from 'hooks/useMediaQuery';
+import { HeaderMobile } from 'components/Header/HeaderMobile';
 
 import styles from './LoginPage.module.scss';
-import { Link } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  const navigate = useNavigate();
+  const { authStore } = rootStore;
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
@@ -22,27 +30,58 @@ const LoginPage: React.FC = () => {
     setPassword(value);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      await authStore.login(email, password);
+      navigate(RoutesConfig.home);
+    } catch {
+      setError('Wrong email and/or password');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-      <Header />
+      {isMobile ? <HeaderMobile /> : <Header className="header" />}
       <div className={styles.root}>
         <div className={styles.container}>
-          <div className={styles.imgContainer}>
-            <img className={styles.img} src={clothes} alt="loginImg" />
-          </div>
+          {!isMobile && (
+            <div className={styles.imgContainer}>
+              <img className={styles.img} src={clothes} alt="loginImg" />
+            </div>
+          )}
           <div className={styles.loginContainer}>
             <img src={frame} alt="logoImg" />
-            <form className={styles.form}>
+            <form onSubmit={handleSubmit} className={styles.form}>
               <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
-              <Input className={styles.input} value={password} placeholder="password" onChange={handlePasswordChange} />
-              <Button>Log in</Button>
+              <Input
+                isPassword={true}
+                className={styles.input}
+                value={password}
+                placeholder="password"
+                onChange={handlePasswordChange}
+              />
+              <div className={styles.errorContainer}>
+                {error && (
+                  <Text view="p14" className="errorMessage">
+                    {error}
+                  </Text>
+                )}
+              </div>
+              <Button disabled={loading}>Log in</Button>
             </form>
             <div className={styles.bottomText}>
-              <Text view="p-16" color="secondary">
+              <Text view="p16" color="secondary">
                 Don't have an account?
               </Text>
               <Link className="link" to={RoutesConfig.signup}>
-                <Text view="p-16" color="accent">
+                <Text view="p16" color="accent">
                   Sign up now!
                 </Text>
               </Link>

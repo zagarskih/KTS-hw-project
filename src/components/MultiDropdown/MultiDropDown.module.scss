@@ -6,6 +6,10 @@
   cursor: pointer;
 }
 
+.inputWrapper {
+  position: relative;
+}
+
 .input {
   color: $input-placeholder;
   @include font-primary-s14;
@@ -16,7 +20,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background: white;
+  background: $background-elements;
   border: 0;
   overflow-y: auto;
   margin-top: 8px;
@@ -39,11 +43,27 @@
 }
 
 .icon {
-  color: $text-secondary;
+  color: $icon-primary;
   display: inline-block;
-  transition: transform 0.3s ease;
+  transition: 0.3s ease;
 
   &.flipIcon {
     transform: scaleY(-1);
+  }
+
+  &:hover {
+    color: $icon-secondary;
+  }
+}
+
+.clearIcon {
+  position: absolute;
+
+  z-index: 1000;
+  stroke: $icon-primary;
+  left: -30px;
+
+  &:hover path {
+    stroke: $icon-secondary;
   }
 }

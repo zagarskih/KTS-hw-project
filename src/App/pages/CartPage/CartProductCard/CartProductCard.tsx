@@ -1,43 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text } from 'components/Text';
-import plus from 'assets/icons/plus.svg';
-import minus from 'assets/icons/minus.svg';
+import rootStore from 'stores/instance';
+import { observer } from 'mobx-react-lite';
+import { ProductApi } from 'api/types';
+import getFixedFallbackImage from 'utils/getFallbackImage';
+import { QuantityConfig } from 'config/constants';
+import { Link } from 'react-router-dom';
+import RoutesConfig from 'routes';
+
+import PlusIcon from 'assets/icons/PlusIcon';
+import MinusIcon from 'assets/icons/MinusIcon';
+
 import trashCan from 'assets/icons/trashCan.svg';
 import styles from './CartProductCard.module.scss';
 
-const CartProductCard: React.FC = () => {
+type CartProductCardProps = {
+  product: ProductApi;
+  quantity: number;
+};
+
+const CartProductCard: React.FC<CartProductCardProps> = ({ product, quantity }) => {
+  const { cartStore } = rootStore;
+  const [imgError, setImgError] = useState(false);
+
+  const isDecrementDisabled = quantity === QuantityConfig.MIN_QUANTITY;
+  const isIncrementDisabled = quantity === QuantityConfig.MAX_QUANTITY;
+
   return (
     <div className={styles.container}>
-      <div className={styles.imgContainer}>
-        <img src="path" alt="ProductImg" />
-      </div>
+      <Link to={RoutesConfig.products.id(product.id)}>
+        <div className={styles.imgContainer}>
+          {product.images[0] && !imgError ? (
+            <img className={styles.img} src={product.images[0]} alt="ProductImg" onError={() => setImgError(true)} />
+          ) : (
+            <img className={styles.img} src={getFixedFallbackImage(product.category.name, product.id)} />
+          )}
+        </div>
+      </Link>
 
-      <div className={styles.text}>
-        <Text view="p-18" maxLines={1}>
-          TitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitleTitle
-        </Text>
-        <Text view="p-18">$30</Text>
-      </div>
+      <div className={styles.cardContent}>
+        <div className={styles.text}>
+          <Link className="link" to={RoutesConfig.products.id(product.id)}>
+            <Text view="p18" weight="medium" maxLines={1}>
+              {product.title}
+            </Text>
+          </Link>
+          <Text view="p18">${product.price}</Text>
+        </div>
 
-      <div className={styles.counter}>
-        <button className={styles.button} id="decrement">
-          <img src={minus} alt="minus" />
-        </button>
-        <Text view="p-18" className={styles.count}>
-          1
-        </Text>
-        <button className={styles.button} id="increment">
-          <img src={plus} alt="plus" />
-        </button>
-      </div>
+        <div className={styles.actions}>
+          <div className={styles.counter}>
+            <button
+              onClick={() => cartStore.decrementQuantity(product.id)}
+              className={styles.button}
+              id="decrement"
+              disabled={isDecrementDisabled}
+            >
+              <MinusIcon className={styles.quantityIcon} />
+            </button>
+            <Text view="p16" className={styles.count}>
+              {quantity}
+            </Text>
+            <button
+              onClick={() => cartStore.incrementQuantity(product.id)}
+              className={styles.button}
+              id="increment"
+              disabled={isIncrementDisabled}
+            >
+              <PlusIcon className={styles.quantityIcon} />
+            </button>
+          </div>
 
-      <div className={styles.delete}>
-        <button className={styles.deleteButton}>
-          <img src={trashCan} alt="delete" />
-        </button>
+          <div className={styles.delete}>
+            <button onClick={() => cartStore.removeFromCart(product.id)} className={styles.deleteButton}>
+              <img src={trashCan} alt="delete" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default CartProductCard;
+export default observer(CartProductCard);

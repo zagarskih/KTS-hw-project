@@ -2,9 +2,13 @@
 
 .card {
   cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 
   &:hover {
     @include shadow;
+    transform: scale(1.02);
   }
 }
 

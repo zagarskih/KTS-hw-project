@@ -1,33 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text } from 'components/Text';
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
+import { observer } from 'mobx-react-lite';
+import rootStore from 'stores/instance';
+import { AmountConfig } from 'config/constants';
 
 import styles from './TotalCard.module.scss';
 
 const TotalCard: React.FC = () => {
   const [promocode, setPromocode] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const { cartStore } = rootStore;
+
+  const delivery = AmountConfig.delivery ? `$${AmountConfig.delivery}` : 'Free';
+
+  useEffect(() => {
+    const savedPromocode = localStorage.getItem('appliedPromocode');
+    if (savedPromocode) {
+      setPromocode(savedPromocode);
+    }
+  }, []);
 
   const handleChangePromocode = (value: string) => {
     setPromocode(value);
+    setError(null);
   };
 
   const handleSubmitPromocode = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Promocode applied:', promocode);
+    try {
+      cartStore.applyPromocode(promocode);
+      setError(null);
+    } catch {
+      setError('is invalid');
+    }
   };
 
   return (
     <div className={styles.container}>
-      <Text className={styles.title} view="p-18">
+      <Text className={styles.title} view="p18">
         Summary
       </Text>
 
       <hr className={styles.horizontalLine} />
 
-      <Text view="p-16" color="secondary">
-        Promocode
-      </Text>
+      <div className={styles.promocodeText}>
+        <Text className={styles.promoTitle} view="p16" color="secondary">
+          Promocode
+        </Text>
+        {error && <Text className={styles.error}>{error}</Text>}
+        {localStorage.getItem('appliedPromocode') === AmountConfig.PROMOCODE && (
+          <Text className={styles.promoApplied} color="accent" view="p14">
+            {AmountConfig.discount}% discount promocode applied
+          </Text>
+        )}
+      </div>
+
       <form className={styles.promocode} onSubmit={handleSubmitPromocode}>
         <Input
           className={styles.input}
@@ -35,40 +64,40 @@ const TotalCard: React.FC = () => {
           onChange={handleChangePromocode}
           placeholder="Your promocode"
         />
-        <Button>Apply</Button>
+        <Button type="submit">Apply</Button>
       </form>
 
       <hr className={styles.horizontalLine} />
 
       <div className={styles.prices}>
         <div className={styles.text}>
-          <Text view="p-16" color="secondary">
+          <Text view="p16" color="secondary">
             Subtotal
           </Text>
-          <Text view="p-16">$30</Text>
+          <Text view="p16">${cartStore.getTotalAmount().toFixed(2)}</Text>
         </div>
         <div className={styles.text}>
-          <Text view="p-16" color="secondary">
+          <Text view="p16" color="secondary">
             Shipping
           </Text>
-          <Text view="p-16">Free</Text>
+          <Text view="p16">{delivery}</Text>
         </div>
         <div className={styles.text}>
-          <Text view="p-16" color="secondary">
+          <Text view="p16" color="secondary">
             Discount
           </Text>
-          <Text view="p-16">$0</Text>
+          <Text view="p16">${cartStore.discount.toFixed(2)}</Text>
         </div>
       </div>
 
       <hr className={styles.horizontalLine} />
 
       <div className={styles.text}>
-        <Text view="p-18" weight="medium">
+        <Text view="p18" weight="medium">
           Total
         </Text>
-        <Text view="p-18" weight="medium">
-          $30
+        <Text view="p18" weight="medium">
+          ${cartStore.getFinalAmount().toFixed(2)}
         </Text>
       </div>
 
@@ -77,4 +106,4 @@ const TotalCard: React.FC = () => {
   );
 };
 
-export default TotalCard;
+export default observer(TotalCard);

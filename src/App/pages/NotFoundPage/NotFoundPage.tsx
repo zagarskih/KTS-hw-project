@@ -9,7 +9,7 @@ const NotFoundPage: React.FC = () => {
     <div className={styles.root}>
       <Text view="title">Ooops!</Text>
       <Text view="title">Page not found</Text>
-      <Text className={styles.secondaryText} color="secondary" view="p-18">
+      <Text className={styles.secondaryText} color="secondary" view="p18">
         Please visit our homepage to get where you need to go.
       </Text>
       <Link to={RoutesConfig.products.mask}>

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
-    "build": "NODE_ENV=production npx webpack --mode=production",
+    "build": "cross-env NODE_ENV=production npx webpack --mode=production",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
@@ -38,6 +38,7 @@
     "css-loader": "^7.1.2",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",

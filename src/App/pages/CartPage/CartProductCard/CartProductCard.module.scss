@@ -6,22 +6,39 @@
   align-items: center;
   height: 120px;
   width: 100%;
-  max-width: 739px;
-  min-width: 639px;
   background-color: $background-elements;
-  padding: $space-s $space-l;
+  padding-right: $space-l;
   transition: max-width 0.3s ease;
+  @include shadowLight;
 
-  @media (max-width: 880px) {
-    width: 100%;
-    max-width: 639px;
+  @media (max-width: 768px) {
+    height: 140px;
+    padding: 0;
+  }
+}
+
+.cardContent {
+  display: flex;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-xs;
   }
 }
 
 .imgContainer {
-  @include square(80px);
-  background-color: $img-placeholder;
-  flex-shrink: 0; 
+  @include square(120px);
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    @include square(140px);
+  }
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
 }
 
 .text {
@@ -36,9 +53,10 @@
   flex-grow: 1;
   transition: max-width 0.3s ease;
 
-  @media (max-width: 880px) {
-    width: 100%;
-    max-width: 230px;
+  @media (max-width: 768px) {
+    width: 80%;
+    margin: 0 $space-m;
+
   }
 }
 
@@ -68,8 +86,20 @@
   justify-content: center;
 }
 
+.button:disabled {
+  cursor: auto;
+  opacity: 0.5;
+}
+
+.button:disabled .quantityIcon {
+  stroke: $icon-primary;
+}
+
 .delete {
   margin-left: $space-xl;
+  @media (max-width: 768px) {
+    margin-left: $space-s;
+  }
 }
 
 .deleteButton {
@@ -77,4 +107,24 @@
   border: none;
   cursor: pointer;
   padding: 0;
+}
+
+.quantityIcon {
+  stroke: $text-primary;
+  transition: 0.2s;
+
+  &:hover {
+    stroke: $icon-primary;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: $space-s;
+
+  @media (max-width: 768px) {
+    margin-right: $space-m;
+  }
 }

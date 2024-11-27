@@ -4,10 +4,11 @@ import bag from 'assets/icons/bag.svg';
 import user from 'assets/icons/user.svg';
 import { Text } from 'components';
 import classNames from 'classnames';
-import styles from './Header.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { tabsEntries } from 'config/tabs';
 import RoutesConfig from 'routes';
+
+import styles from './Header.module.scss';
 
 type HeaderProps = {
   className?: string;
@@ -29,8 +30,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             <Link key={key} className="link" to={`/${key}`}>
               <div className={styles.textWrapper}>
                 <Text
-                  view="p-18"
-                  className={classNames(location.pathname.startsWith(`/${key}`) && styles.highlightedtext)}
+                  view="p18"
+                  className={classNames(location.pathname.startsWith(`/${key}`) && styles.highlightedtext, styles.text)}
                   color={location.pathname.startsWith(`/${key}`) ? 'accent' : 'primary'}
                 >
                   {value}
@@ -45,7 +46,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         <Link className="link" to={RoutesConfig.cart}>
           <img className={styles.bag} src={bag} alt="bag" />
         </Link>
-        <Link className="link" to={RoutesConfig.signup}>
+        <Link className="link" to={RoutesConfig.profile}>
           <img className={styles.user} src={user} alt="user" />
         </Link>
       </div>

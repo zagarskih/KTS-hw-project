@@ -1,0 +1,61 @@
+@use "styles/styles" as *;
+
+.root {
+  padding-bottom: 100px;
+
+  @media (max-width: 768px) {
+    padding-bottom: $space-xl;
+    margin-top: calc(90px + $space-m);
+  }
+}
+
+.title {
+  margin-top: $space-xl;
+  margin-left: 100px;
+  margin-right: 100px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    margin: $space-s $space-s 0 $space-l;
+  }
+}
+
+.profile {
+  margin-left: 100px;
+  margin-top: $space-m;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    margin-left: $space-l;
+    margin-top: $space-s;
+  }
+  
+}
+
+.imgContainer {
+  margin-top: $space-m;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-elements;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.textContainer {
+  margin-left: $space-m;
+  margin-top: $space-m;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}

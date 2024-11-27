@@ -3,8 +3,8 @@ export * from './Card';
 export * from './Header';
 export * from './Input';
 export * from './Loader';
-export * from './Placeholder';
 export * from './Text';
 export * from './Icons/ArrowDownIcon';
 export * from './Icons/CheckIcon';
-export * from './CardsContainer'
+export * from './CardsContainer';
+export * from './Loading';

@@ -7,7 +7,11 @@
 .cardsContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  padding: 0 $space-s $space-m;
+  justify-content: flex-start;
+  gap: 80px;
+  padding: $space-s $space-s $space-m;
+
+  @media (max-width: 768px) {
+    gap: $space-l;
+  }
 }
