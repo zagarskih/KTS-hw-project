@@ -11,4 +11,18 @@ export type ProductApi = {
   description: string;
   category: CategoryApi;
   images: string[];
-}
+};
+
+export type TokensApi = {
+  access_token: string;
+  refresh_token: string;
+};
+
+export type ProfileApi = {
+  id: number;
+  email: string;
+  password: string;
+  name: string;
+  role: 'customer' | 'admin';
+  avatar: string;
+};

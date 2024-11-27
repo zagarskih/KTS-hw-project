@@ -3,18 +3,35 @@
 .container {
   display: flex;
   gap: 48px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .imageContainer {
   @include square(600px);
   overflow: hidden;
   flex-shrink: 0;
+  transition: transform 0.5s ease;
+  display: flex;
+  position: relative;
 
   .image {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
+    flex-shrink: 0;
   }
+
+  @media (max-width: 768px) {
+    @include square(100%);
+  }
+}
+
+.imagesWrapper {
+  display: flex;
+  transition: transform 0.5s ease;
 }
 
 .content {
@@ -22,6 +39,10 @@
     margin-bottom: $space-xl;
     .title {
       margin-bottom: $space-m;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
     }
   }
 }
@@ -44,7 +65,66 @@
     border: 1px solid $button-border;
 
     &:hover {
-      color: white;
+      color: $background-elements;
     }
   }
+}
+
+.actionButtons {
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.imgButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: black;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: 0.3s;
+  z-index: 10;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: auto;
+  }
+}
+
+.prev {
+  left: $space-m;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.next {
+  transform: translateY(-50%) rotate(-90deg);
+  right: $space-m;
 }

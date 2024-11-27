@@ -3,9 +3,10 @@
 .container {
   height: auto;
   width: 100%;
-  max-width: 350px;
   background-color: $background-elements;
   padding: $space-l;
+  box-sizing: border-box;
+  @include shadowLight;
 }
 
 .title {
@@ -17,6 +18,27 @@
   justify-content: space-between;
 }
 
+.error {
+  margin-left: $space-xxs;
+  color: $error-text !important;
+}
+
+.promocodeText {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-s;
+}
+
+.promoTitle {
+  width: 140px;
+}
+
+.promoApplied {
+  text-align: right;
+  width: 100%;
+}
+
 .prices {
   display: flex;
   flex-direction: column;
@@ -26,7 +48,7 @@
 
 .horizontalLine {
   border: none;
-  height: 2px;            
+  height: 2px;
   background-color: $border;
   width: 100%;
   margin: $space-s 0;
@@ -46,4 +68,5 @@
 .input {
   border: 1.5px solid $border;
   width: 220px;
+  margin-right: $space-s;
 }

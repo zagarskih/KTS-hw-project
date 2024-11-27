@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Input, ArrowDownIcon } from 'components';
+import ClearIcon from 'assets/icons/ClearIcon';
+
 import styles from './MultiDropDown.module.scss';
 
 export type MultiDropdownOption<KeyT> = {
@@ -27,8 +29,19 @@ const MultiDropdown = <KeyT extends string | number>(props: MultiDropdownProps<K
 
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const clearFilter = () => {
+    setSearch('');
+    onChange([]);
+  };
+
   const toggleDropdown = () => {
     setIsOpened((prev) => !prev);
+  };
+
+  const handleClearClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    clearFilter();
+    setIsOpened(false);
   };
 
   useEffect(() => {
@@ -70,7 +83,12 @@ const MultiDropdown = <KeyT extends string | number>(props: MultiDropdownProps<K
           onChange={(value) => setSearch(value)}
           placeholder={getTitle(value)}
           disabled={disabled}
-          afterSlot={<ArrowDownIcon className={classNames(styles.icon, isOpened && styles.flipIcon)} />}
+          afterSlot={
+            <>
+              {value.length > 0 && !disabled && <ClearIcon className={styles.clearIcon} onClick={handleClearClick} />}
+              <ArrowDownIcon className={classNames(styles.icon, isOpened && styles.flipIcon)} />
+            </>
+          }
         />
       </div>
       {isOpened && !disabled && (

@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { searchParamsSchema } from 'config/schemas';
 import { AppConfig } from 'config/constants';
 import { useSafeSearchParams } from 'hooks/useSafeSearchParams';
 import { omit } from 'utils/omit';
+import ProductsStore from 'stores/ProductsStore';
 
-export const useSearch = (productsStore: any) => {
+export const useSearch = (productsStore: ProductsStore) => {
   const {
     fetchNextProducts,
     resetProducts,
@@ -57,6 +58,11 @@ export const useSearch = (productsStore: any) => {
     [setSearchParams],
   );
 
+  const clearSearch = useCallback(() => {
+    setSearchDraft('');
+    setSearchParams((prev) => omit(prev, 'search'));
+  }, [setSearchParams]);
+
   const loadPrevious = useCallback(() => {
     fetchPrevProducts({
       search: searchParams?.search,
@@ -79,5 +85,6 @@ export const useSearch = (productsStore: any) => {
     handleSearchChange,
     handleFilterChange,
     loadPrevious,
+    clearSearch,
   };
 };

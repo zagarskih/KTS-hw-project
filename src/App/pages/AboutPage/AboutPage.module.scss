@@ -1,0 +1,221 @@
+@use "styles/styles" as *;
+
+.root {
+  @include flexColumnCenter;
+
+  padding-bottom: $space-xxl;
+
+  @media (max-width: 768px) {
+    padding-bottom: $space-xl;
+  }
+}
+
+.content {
+  padding: 0 $space-xxl;
+  @include flexColumnCenter;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 0 $space-xl;
+  }
+}
+
+.text {
+  min-width: none;
+  width: 650px;
+  margin-top: $space-xxl;
+  text-align: center;
+  margin-bottom: $space-xl;
+
+  .title {
+    margin-top: 0;
+    margin-bottom: $space-m;
+  }
+
+  .description {
+    margin-bottom: $space-s;
+    white-space: pre-wrap;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: calc($space-m + 90px);
+    width: 90%;
+  }
+}
+
+.imgContainer {
+  width: 1240px;
+  height: 550px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
+
+  .img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.missionContainer {
+  width: 100%;
+  display: flex;
+  margin-top: $space-xxl;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-top: $space-xl;
+    gap: $space-l;
+  }
+}
+
+.leftSide {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left: $space-s;
+    margin-right: $space-s;
+  }
+}
+
+.rightSide {
+  margin-right: $space-m;
+  width: 570px;
+  margin-top: calc(18px + $space-m);
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left: $space-s;
+    margin-right: $space-s;
+  }
+}
+
+.titleSecondary {
+  font-size: 36px !important;
+  line-height: 38px !important;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+}
+
+.numbers {
+  display: flex;
+  gap: $space-l;
+  margin-top: $space-m;
+
+  .number {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: $space-l;
+
+  .infoText {
+    display: flex;
+    flex-direction: column;
+    gap: $space-s;
+    margin-left: $space-m;
+  }
+}
+
+.teamContainer {
+  margin-top: $space-xxl;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-top: $space-xl;
+  }
+}
+
+.teamText {
+  margin-top: $space-m;
+  display: flex;
+  justify-content: space-between;
+
+  .teamTitle {
+    width: 400px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .teamSubtitle {
+    width: 515px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-m;
+  }
+}
+
+.teamCards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: $space-m;
+  margin-top: $space-xl;
+}
+
+.teamCard {
+  margin-bottom: $space-s;
+}
+
+.teamImgContainer {
+  width: 394px;
+  height: 360px;
+  overflow: hidden;
+  margin-bottom: $space-m;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.teamImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.teamCardName {
+  margin-bottom: $space-xxs;
+}
+
+.workWithUs {
+  margin-top: $space-xxl;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    margin-top: $space-xl;
+    flex-direction: column;
+    gap: $space-s;
+  }
+}

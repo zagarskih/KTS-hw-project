@@ -9,6 +9,7 @@ const RoutesConfig = {
   cart: '/cart',
   signup: '/signup',
   login: '/login',
+  profile: '/profile',
   notFound: '*',
 };
 

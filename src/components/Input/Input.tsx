@@ -1,18 +1,17 @@
 import React, { ChangeEvent, forwardRef } from 'react';
 import classNames from 'classnames';
+
 import styles from './Input.module.scss';
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
-  /** Значение поля */
   value: string;
-  /** Callback, вызываемый при вводе данных в поле */
   onChange: (value: string) => void;
-  /** Слот для иконки справа */
   afterSlot?: React.ReactNode;
+  isPassword?: boolean;
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { className, value, onChange, afterSlot, placeholder, disabled, ...inputProps } = props;
+  const { className, value, onChange, afterSlot, placeholder, disabled, isPassword, ...inputProps } = props;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
@@ -24,7 +23,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         {...inputProps}
         ref={ref}
         className={styles.input}
-        type="text"
+        type={isPassword ? 'password' : 'text'}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}

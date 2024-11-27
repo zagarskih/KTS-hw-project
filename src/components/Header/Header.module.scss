@@ -6,7 +6,7 @@
   align-items: center;
   height: 90px;
   width: 100%;
-  padding: 0 100px;
+  padding: 0 $space-xxl;
 
   background-color: $background-elements;
   border-bottom: 2px solid $border;
@@ -33,6 +33,14 @@
   display: inline-block;
 }
 
+.text {
+  transition: 0.3s;
+
+  &:hover {
+    color: $text-accent !important;
+  }
+}
+
 .highlightedtext {
   position: relative;
   overflow: visible !important;
@@ -53,4 +61,13 @@
 .bag,
 .user {
   cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 0.8;
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }

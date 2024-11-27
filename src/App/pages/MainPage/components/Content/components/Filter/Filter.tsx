@@ -4,6 +4,8 @@ import rootStore from 'stores/instance';
 import { observer } from 'mobx-react-lite';
 import { mapCategoryToOption, getTitle } from 'utils/dropdownUtils';
 
+import styles from './Filter.module.scss';
+
 type FilterProps = {
   onChange: (value: number[]) => void;
   value: number[];
@@ -36,6 +38,7 @@ const Filter: React.FC<FilterProps> = observer((props) => {
 
   return (
     <MultiDropdown
+      className={styles.dropDown}
       options={options}
       value={selectedOptions}
       onChange={handleChange}

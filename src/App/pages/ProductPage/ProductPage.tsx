@@ -1,16 +1,17 @@
 import { z } from 'zod';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import RelatedProducts from './components/RelatedProducts';
-import GoBack from 'components/GoBack';
-import { Header } from 'components';
+import { GoBack, Layout } from 'components';
 import ProductCard from './components/ProductCard';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { useSafeParams } from 'hooks/useSafeParams';
 import { observer } from 'mobx-react-lite';
 import ProductStore from 'stores/ProductStore';
 import { useLocalStore } from 'hooks/useLocalStore';
+import { Loading } from 'components';
 import RoutesConfig from 'routes';
+import useIsMobile from 'hooks/useIsMobile';
+import classNames from 'classnames';
 
 import styles from './ProductPage.module.scss';
 
@@ -18,12 +19,14 @@ const paramsSchema = z.object({
   id: z.coerce.number().int().positive(),
 });
 
-const ProductPage: React.FC = observer(() => {
+const ProductPage: React.FC = () => {
   const params = useSafeParams(paramsSchema, RoutesConfig.home);
   const productId = params?.id;
 
   const productStore = useLocalStore(() => new ProductStore());
-  const { product, fetchProduct, isLoadingProduct } = productStore;
+  const { product, fetchProduct } = productStore;
+
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,24 +34,37 @@ const ProductPage: React.FC = observer(() => {
     if (productId !== undefined) {
       fetchProduct(productId);
     }
+
+    return () => {
+      productStore.destroy();
+    };
   }, [productId, productStore]);
 
-  if (isLoadingProduct) return '...loading';
+  if (product === null) return <NotFoundPage />;
 
-  if (!product) return <NotFoundPage />;
+  const goBack = () => {
+    window.history.back();
+  };
 
   return (
-    <div className={styles.root}>
-      <Header className="header" />
-      <Link className="link" to={RoutesConfig.products.mask}>
-        <GoBack className="goBack" children="Go back" />
-      </Link>
-      <div className={styles.container}>
-        <ProductCard product={product} />
-        <RelatedProducts categoryId={product.category.id} productID={product.id} />
-      </div>
-    </div>
+    <Layout className={styles.root} isMobile={isMobile}>
+      {product ? (
+        <>
+          <GoBack onClick={goBack} className={classNames(styles.goBackButton, 'goBack')} children="Go back" />
+          <div className={styles.card}>
+            <ProductCard product={product} />
+          </div>
+          <div className={styles.related}>
+            <RelatedProducts categoryId={product.category.id} productID={product.id} />
+          </div>
+        </>
+      ) : (
+        <div className="loaderCenter">
+          <Loading />
+        </div>
+      )}
+    </Layout>
   );
-});
+};
 
-export default ProductPage;
+export default observer(ProductPage);

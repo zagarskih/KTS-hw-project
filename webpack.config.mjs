@@ -10,6 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const srcPath = path.resolve(__dirname, 'src');
+const entryPath = path.join(srcPath, 'main.tsx');
 const isProd = process.env.NODE_ENV === 'production';
 
 const getSettingsForStyles = (withModules = false) => {
@@ -21,7 +22,7 @@ const getSettingsForStyles = (withModules = false) => {
           loader: 'css-loader',
           options: {
             modules: {
-              localIdentName: !isProd ? '[path][name]__[local]' : '[hash:base64]',
+              localIdentName: !isProd ? '[name]__[local]__[hash:base64:5]' : '[hash:base64]',
               namedExport: false,
             },
           },
@@ -39,11 +40,12 @@ const getSettingsForStyles = (withModules = false) => {
 };
 
 export default {
-  entry: './src/main.tsx',
+  entry: entryPath,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: isProd ? 'bundle.[contenthash].js' : 'bundle.js',
     publicPath: '/',
+    clean: true,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
@@ -101,7 +103,7 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html'),
-      favicon: './src/assets/icons/favicon.svg',
+      favicon: path.resolve(srcPath, 'assets/icons/favicon.svg'),
     }),
     !isProd && new ReactRefreshWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
@@ -112,13 +114,13 @@ export default {
     }),
     isProd &&
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css',
+        filename: isProd ? '[name].[contenthash].css' : '[name].css',
       }),
     new webpack.ProvidePlugin({
       React: 'react',
     }),
   ].filter(Boolean),
   optimization: {
-    minimize: false,
+    minimize: isProd,
   },
 };

@@ -1,0 +1,23 @@
+@use "styles/styles" as *;
+
+.menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  background: $background-elements;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.nav {
+  margin-top: $space-l;
+  display: flex;
+  flex-direction: column;
+  gap: $space-m;
+  padding-left: $space-s;
+}
+
