@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, Button } from 'components';
 import { Link } from 'react-router-dom';
-import styles from './NotFoundPage.module.scss';
 import RoutesConfig from 'routes';
+
+import styles from './NotFoundPage.module.scss';
 
 const NotFoundPage: React.FC = () => {
   return (

@@ -1,16 +1,15 @@
 import React from 'react';
-import { Header, Text } from 'components';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import { Text, Layout } from 'components';
 import Content from './components/Content';
+import useIsMobile from 'hooks/useIsMobile';
+
 import styles from './MainPage.module.scss';
-import useMediaQuery from 'hooks/useMediaQuery';
 
 const MainPage: React.FC = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
+    <Layout className={styles.root} isMobile={isMobile}>
       <div className={styles.text}>
         <Text className={styles.title} view="title">
           Products
@@ -23,7 +22,7 @@ const MainPage: React.FC = () => {
       <div className={styles.content}>
         <Content />
       </div>
-    </div>
+    </Layout>
   );
 };
 

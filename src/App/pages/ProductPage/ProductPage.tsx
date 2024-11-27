@@ -1,8 +1,7 @@
 import { z } from 'zod';
 import React, { useEffect } from 'react';
 import RelatedProducts from './components/RelatedProducts';
-import GoBack from 'components/GoBack';
-import { Header } from 'components';
+import { GoBack, Layout } from 'components';
 import ProductCard from './components/ProductCard';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { useSafeParams } from 'hooks/useSafeParams';
@@ -11,8 +10,7 @@ import ProductStore from 'stores/ProductStore';
 import { useLocalStore } from 'hooks/useLocalStore';
 import { Loading } from 'components';
 import RoutesConfig from 'routes';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 import classNames from 'classnames';
 
 import styles from './ProductPage.module.scss';
@@ -28,7 +26,7 @@ const ProductPage: React.FC = () => {
   const productStore = useLocalStore(() => new ProductStore());
   const { product, fetchProduct } = productStore;
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,13 +40,6 @@ const ProductPage: React.FC = () => {
     };
   }, [productId, productStore]);
 
-  // if (product === undefined)
-  //   return (
-  //     <div className={styles.loader}>
-  //       <Loading />
-  //     </div>
-  //   );
-
   if (product === null) return <NotFoundPage />;
 
   const goBack = () => {
@@ -56,9 +47,7 @@ const ProductPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
-
+    <Layout className={styles.root} isMobile={isMobile}>
       {product ? (
         <>
           <GoBack onClick={goBack} className={classNames(styles.goBackButton, 'goBack')} children="Go back" />
@@ -74,7 +63,7 @@ const ProductPage: React.FC = () => {
           <Loading />
         </div>
       )}
-    </div>
+    </Layout>
   );
 };
 

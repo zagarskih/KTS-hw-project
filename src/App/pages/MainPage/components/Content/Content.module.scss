@@ -46,9 +46,7 @@
 }
 
 .toTopContainer {
-  display: flex;
-  align-items: center;
+  @include flexColumnCenter;
   justify-content: center;
-  flex-direction: column;
   gap: $space-xs;
 }

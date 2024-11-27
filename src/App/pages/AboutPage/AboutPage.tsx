@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Header, Text, Button } from 'components';
+import { Text, Button, Layout } from 'components';
 import classNames from 'classnames';
 import { TeamConfig } from 'config/team';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 
 import styles from './AboutPage.module.scss';
 import aboutPhoto from 'assets/images/aboutPhoto.png';
@@ -12,15 +11,14 @@ import consultation from 'assets/icons/consultation.svg';
 import guarantee from 'assets/icons/guarantee.svg';
 
 const AboutPage: React.FC = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
+    <Layout className={styles.root} isMobile={isMobile}>
       <div className={styles.content}>
         <div className={styles.text}>
           <Text className={styles.title} view="title">
@@ -146,7 +144,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

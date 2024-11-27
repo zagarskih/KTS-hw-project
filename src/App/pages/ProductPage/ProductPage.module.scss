@@ -1,7 +1,7 @@
 @use "styles/styles" as *;
 
 .root {
-  padding-bottom: 100px;
+  padding-bottom: $space-xxl;
 
   @media (max-width: 768px) {
     padding-bottom: $space-xl;
@@ -15,7 +15,7 @@
   justify-content: space-between;
   gap: $space-l;
   max-width: 1272px;
-  margin-left: 100px;
+  margin-left: $space-xxl;
   margin-top: $space-l;
 
   @media (max-width: 768px) {
@@ -27,7 +27,7 @@
 .related {
   max-width: 1272px;
   margin-top: $space-m;
-  margin-left: calc(100px - $space-s);
+  margin-left: calc($space-xxl - $space-s);
 
   @media (max-width: 768px) {
     margin-left: 0;

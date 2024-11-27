@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input, Button } from 'components';
 import ClearIcon from 'assets/icons/ClearIcon';
+
 import styles from './Search.module.scss';
 
 type SearchInputProps = {

@@ -32,6 +32,7 @@ $space-s: 16px;
 $space-m: 24px;
 $space-l: 32px;
 $space-xl: 48px;
+$space-xxl: 100px;
 
 .link {
   text-decoration: none;
@@ -47,7 +48,7 @@ $space-xl: 48px;
 }
 
 .goBack {
-  margin-left: 100px;
+  margin-left: $space-xxl;
   margin-top: 60px;
 }
 
@@ -64,6 +65,19 @@ $space-xl: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin buttonResetStyle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 @mixin shadow {

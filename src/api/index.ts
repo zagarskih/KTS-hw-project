@@ -3,6 +3,7 @@ import { ProductApi } from './types';
 import { CategoryApi } from './types';
 import { TokensApi } from './types';
 import { ProfileApi } from './types';
+import axios from 'axios';
 
 export const getProducts = async (args?: {
   search?: string;
@@ -72,4 +73,38 @@ export const changeImage = async (args: { id: number; avatar: string }) => {
       avatar: args.avatar,
     },
   });
+};
+
+const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dqkmdxyxx/upload';
+const CLOUDINARY_UPLOAD_PRESET = 'hddkomqo';
+
+const generatePublicId = (): string => {
+  return `avatar_${Date.now()}`;
+};
+
+export const uploadFile = async (file: File): Promise<string | null> => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+  formData.append('tags', 'avatar');
+
+  const publicId = generatePublicId();
+  formData.append('public_id', publicId);
+
+  try {
+    const response = await axios.post(CLOUDINARY_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response.data.secure_url;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data);
+    } else {
+      console.error(error);
+    }
+    return null;
+  }
 };

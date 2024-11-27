@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Button, Header } from 'components';
+import { Text, Button, Layout } from 'components';
 import rootStore from 'stores/instance';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from 'components';
 import RoutesConfig from 'routes';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 
 import styles from './ProfilePage.module.scss';
 
@@ -15,8 +14,10 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [avatarLoading, setAvatarLoading] = useState(false);
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -33,13 +34,45 @@ const ProfilePage: React.FC = () => {
     navigate(RoutesConfig.login);
   };
 
+  const handleImageClick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = (event: Event) => {
+      const inputElement = event.target as HTMLInputElement;
+      if (inputElement?.files) {
+        handleFileChange({
+          target: inputElement,
+          preventDefault: () => {},
+          persist: () => {},
+        } as React.ChangeEvent<HTMLInputElement>);
+      }
+    };
+    input.click();
+  };
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setAvatarLoading(true);
+      setImagePreview(null);
+      try {
+        await authStore.changeAvatar(file);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setAvatarLoading(false);
+      }
+    }
+  };
+
   if (!authStore.isAuth) {
     return null;
   }
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
+    <Layout className={styles.root} isMobile={isMobile}>
       {loading ? (
         <div className="loaderCenter">
           <Loading />
@@ -52,7 +85,18 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className={styles.profile}>
             <div className={styles.imgContainer}>
-              <img className={styles.img} src={authStore.user?.avatar} alt="User avatar" />
+              {avatarLoading ? (
+                <div className={styles.imgLoading}>
+                  <Loading />
+                </div>
+              ) : (
+                <img
+                  className={styles.img}
+                  src={imagePreview || authStore.user?.avatar}
+                  alt="User avatar"
+                  onClick={handleImageClick}
+                />
+              )}
             </div>
             <div className={styles.textContainer}>
               <Text view="p20" weight="bold">
@@ -65,7 +109,7 @@ const ProfilePage: React.FC = () => {
           </div>
         </>
       )}
-    </div>
+    </Layout>
   );
 };
 

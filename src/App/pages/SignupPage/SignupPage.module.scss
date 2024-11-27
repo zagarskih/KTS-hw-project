@@ -1,15 +1,11 @@
 @use "styles/styles" as *;
 
 .root {
-  height: calc(100% - 90px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexColumnCenter;
 
   @media (max-width: 768px) {
     margin-top: calc(90px + $space-m);
     padding: 0 $space-s;
-    align-items: flex-start;
   }
 }
 
@@ -21,9 +17,11 @@
   width: 800px;
   background-color: $background-elements;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 90px;
 
   @media (max-width: 768px) {
     width: 100%;
+    margin-top: $space-s;
   }
 }
 
@@ -44,10 +42,8 @@
 }
 
 .loginContainer {
-  display: flex;
-  flex-direction: column;
+  @include flexColumnCenter;
   justify-content: space-around;
-  align-items: center;
 
   flex: 1;
   height: 468px;

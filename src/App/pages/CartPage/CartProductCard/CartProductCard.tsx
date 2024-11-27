@@ -8,11 +8,10 @@ import { QuantityConfig } from 'config/constants';
 import { Link } from 'react-router-dom';
 import RoutesConfig from 'routes';
 
+import styles from './CartProductCard.module.scss';
 import PlusIcon from 'assets/icons/PlusIcon';
 import MinusIcon from 'assets/icons/MinusIcon';
-
 import trashCan from 'assets/icons/trashCan.svg';
-import styles from './CartProductCard.module.scss';
 
 type CartProductCardProps = {
   product: ProductApi;

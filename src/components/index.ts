@@ -8,3 +8,5 @@ export * from './Icons/ArrowDownIcon';
 export * from './Icons/CheckIcon';
 export * from './CardsContainer';
 export * from './Loading';
+export * from './Layout';
+export * from './GoBack';

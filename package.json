@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
     "build": "cross-env NODE_ENV=production npx webpack --mode=production",
+    "start": "serve -s dist",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
@@ -55,6 +56,7 @@
     "sass": "^1.80.7",
     "sass-embedded": "^1.80.5",
     "sass-loader": "^16.0.3",
+    "serve": "^14.2.4",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",

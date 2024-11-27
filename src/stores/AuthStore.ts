@@ -1,5 +1,5 @@
 import { makeAutoObservable, runInAction } from 'mobx';
-import { login, getProfile, refreshToken, createUser } from 'api';
+import { login, getProfile, refreshToken, createUser, uploadFile, changeImage } from 'api';
 import { ProfileApi } from 'api/types';
 
 export default class AuthStore {
@@ -71,6 +71,21 @@ export default class AuthStore {
 
   refreshToken = async () => {
     await refreshToken();
+  };
+
+  changeAvatar = async (file: File) => {
+    const avatarUrl = await uploadFile(file);
+
+    if (avatarUrl) {
+      try {
+        if (this.user) {
+          await changeImage({ id: this.user.id, avatar: avatarUrl });
+          await this.fetchProfile();
+        }
+      } catch (error) {
+        console.error('Failed to update avatar:', error);
+      }
+    }
   };
 
   logout() {

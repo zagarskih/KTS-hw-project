@@ -1,9 +1,8 @@
 @use "styles/styles" as *;
 
 .root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flexColumnCenter;
+
   margin-top: 250px;
 }
 

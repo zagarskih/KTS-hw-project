@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-import { Header, Text } from 'components';
+import { Text, Layout } from 'components';
 import Content from './components/Content';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 
 import styles from './CategoriesPage.module.scss';
 
 const CategoriesPage: React.FC = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
+    <Layout className={styles.root} isMobile={isMobile}>
       <div className={styles.text}>
         <Text className={styles.title} view="title">
           Categories
@@ -27,7 +25,7 @@ const CategoriesPage: React.FC = () => {
       <div className={styles.content}>
         <Content />
       </div>
-    </div>
+    </Layout>
   );
 };
 

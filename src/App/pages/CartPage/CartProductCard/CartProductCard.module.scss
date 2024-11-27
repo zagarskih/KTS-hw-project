@@ -75,10 +75,7 @@
 }
 
 .button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  @include buttonResetStyle;
   width: 20px;
   height: 20px;
   display: flex;
@@ -103,10 +100,7 @@
 }
 
 .deleteButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  @include buttonResetStyle;
 }
 
 .quantityIcon {

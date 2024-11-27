@@ -16,7 +16,7 @@
 .container {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 100px;
+  padding-bottom: $space-xxl;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -37,7 +37,7 @@
 }
 
 .product {
-  margin-left: 100px;
+  margin-left: $space-xxl;
 
   @media (max-width: 768px) {
     margin-left: $space-s;
@@ -46,7 +46,7 @@
 
 .totalCard {
   margin-top: $space-l;
-  margin-right: 100px;
+  margin-right: $space-xxl;
 
   @media (max-width: 768px) {
     margin-left: $space-s;

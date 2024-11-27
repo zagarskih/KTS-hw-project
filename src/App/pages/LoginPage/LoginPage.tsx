@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import clothes from 'assets/images/clothes.jpg';
-import frame from 'assets/icons/frame.svg';
-import { Header, Input, Text, Button } from 'components';
-import { useNavigate } from 'react-router-dom';
+import { Input, Text, Button, Layout } from 'components';
+import { useNavigate, Link } from 'react-router-dom';
 import rootStore from 'stores/instance';
 import RoutesConfig from 'routes';
-import { Link } from 'react-router-dom';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 
 import styles from './LoginPage.module.scss';
+import clothes from 'assets/images/clothes.jpg';
+import frame from 'assets/icons/frame.svg';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +15,7 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   const navigate = useNavigate();
   const { authStore } = rootStore;
@@ -47,49 +45,46 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
-      <div className={styles.root}>
-        <div className={styles.container}>
-          {!isMobile && (
-            <div className={styles.imgContainer}>
-              <img className={styles.img} src={clothes} alt="loginImg" />
-            </div>
-          )}
-          <div className={styles.loginContainer}>
-            <img src={frame} alt="logoImg" />
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
-              <Input
-                isPassword={true}
-                className={styles.input}
-                value={password}
-                placeholder="password"
-                onChange={handlePasswordChange}
-              />
-              <div className={styles.errorContainer}>
-                {error && (
-                  <Text view="p14" className="errorMessage">
-                    {error}
-                  </Text>
-                )}
-              </div>
-              <Button disabled={loading}>Log in</Button>
-            </form>
-            <div className={styles.bottomText}>
-              <Text view="p16" color="secondary">
-                Don't have an account?
-              </Text>
-              <Link className="link" to={RoutesConfig.signup}>
-                <Text view="p16" color="accent">
-                  Sign up now!
+    <Layout className={styles.root} isMobile={isMobile}>
+      <div className={styles.container}>
+        {!isMobile && (
+          <div className={styles.imgContainer}>
+            <img className={styles.img} src={clothes} alt="loginImg" />
+          </div>
+        )}
+        <div className={styles.loginContainer}>
+          <img src={frame} alt="logoImg" />
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
+            <Input
+              isPassword={true}
+              className={styles.input}
+              value={password}
+              placeholder="password"
+              onChange={handlePasswordChange}
+            />
+            <div className={styles.errorContainer}>
+              {error && (
+                <Text view="p14" className="errorMessage">
+                  {error}
                 </Text>
-              </Link>
+              )}
             </div>
+            <Button disabled={loading}>Log in</Button>
+          </form>
+          <div className={styles.bottomText}>
+            <Text view="p16" color="secondary">
+              Don't have an account?
+            </Text>
+            <Link className="link" to={RoutesConfig.signup}>
+              <Text view="p16" color="accent">
+                Sign up now!
+              </Text>
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

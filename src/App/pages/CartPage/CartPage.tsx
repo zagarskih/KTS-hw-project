@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
-import { Header } from 'components/Header';
 import CartProductCard from './CartProductCard';
 import TotalCard from './TotalCard';
 import { observer } from 'mobx-react-lite';
-import GoBack from 'components/GoBack';
 import rootStore from 'stores/instance';
-import { Text } from 'components';
+import { Text, Layout, GoBack } from 'components';
 import RoutesConfig from 'routes';
 import { useNavigate } from 'react-router-dom';
-import useMediaQuery from 'hooks/useMediaQuery';
-import { HeaderMobile } from 'components/Header/HeaderMobile';
+import useIsMobile from 'hooks/useIsMobile';
 import classNames from 'classnames';
 
 import styles from './CartPage.module.scss';
@@ -18,7 +15,7 @@ const CartPage: React.FC = () => {
   const { cartStore } = rootStore;
   const navigate = useNavigate();
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   const goShopping = () => {
     navigate(RoutesConfig.home);
@@ -29,8 +26,7 @@ const CartPage: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.root}>
-      {isMobile ? <HeaderMobile /> : <Header className="header" />}
+    <Layout className={styles.root} isMobile={isMobile}>
       <GoBack onClick={goShopping} className={classNames(styles.goBackButton, 'goBack')} children="Continue shopping" />
       <div className={styles.container}>
         {cartStore.cartItems.length === 0 && (
@@ -49,7 +45,7 @@ const CartPage: React.FC = () => {
           <TotalCard />
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
