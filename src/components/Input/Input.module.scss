@@ -9,25 +9,43 @@
 .input {
   width: 100%;
   height: 52px;
-  padding: 14px 12px;
+  padding: 14px $space-xl 14px 12px;
   box-sizing: border-box;
   background-color: white;
   border: 1px solid white;
 
   @include font-primary-s16;
 
+  @include dark-theme {
+    background-color: $background-dark;
+    border: 1px solid $border-dark;
+    color: $text-primary-dark;
+  }
+
   &:focus {
     border: 1px solid $brand;
     outline: none;
+
+    @include dark-theme {
+      border: 1px solid $brand-dark;
+    }
   }
 
   &:disabled {
     color: $input-placeholder;
+
+    @include dark-theme {
+      color: $input-placeholder-dark;
+    }
   }
 
   &::placeholder {
     @include font-primary-s16;
     color: $input-placeholder;
+
+    @include dark-theme {
+      color: $input-placeholder-dark;
+    }
   }
 }
 

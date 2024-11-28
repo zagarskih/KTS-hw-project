@@ -1,25 +1,31 @@
-import React from 'react';
-import { Header, Text } from 'components';
+import React, { useEffect } from 'react';
+import { Text, Layout } from 'components';
 import Content from './components/Content';
+import useIsMobile from 'hooks/useIsMobile';
+
 import styles from './CategoriesPage.module.scss';
 
 const CategoriesPage: React.FC = () => {
-  return (
-    <div className={styles.root}>
-      <Header className="header" />
+  const isMobile = useIsMobile();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <Layout className={styles.root} isMobile={isMobile}>
       <div className={styles.text}>
         <Text className={styles.title} view="title">
           Categories
         </Text>
-        <Text className={styles.description} view="p-20" color="secondary">
+        <Text className={styles.description} view="p20" color="secondary">
           Choose the category that interests you, and find exactly what you're looking for with ease
         </Text>
       </div>
       <div className={styles.content}>
         <Content />
       </div>
-    </div>
+    </Layout>
   );
 };
 

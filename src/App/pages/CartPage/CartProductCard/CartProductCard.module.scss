@@ -1,0 +1,142 @@
+@use "styles/styles" as *;
+
+.container {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+  min-width: 768px;
+  background-color: $background-elements;
+  padding-right: $space-l;
+  transition: max-width 0.3s ease;
+  @include shadowLight;
+
+  @media (max-width: 768px) {
+    height: 140px;
+    padding: 0;
+    min-width: 360px;
+  }
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
+}
+
+.cardContent {
+  display: flex;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: $space-xs;
+  }
+}
+
+.imgContainer {
+  @include square(120px);
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    @include square(140px);
+  }
+}
+
+.img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-xs;
+  margin: 0 $space-m;
+
+  width: 100%;
+  max-width: 330px;
+  flex-grow: 1;
+  transition: max-width 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    margin: 0 $space-m;
+
+  }
+}
+
+.counter {
+  margin-left: $space-m;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  width: 120px;
+  border: 1px solid $border;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 0 $space-xxs;
+  flex-shrink: 0;
+
+  @include dark-theme {
+    border: 1px solid $border-dark;
+  }
+}
+
+.button {
+  @include buttonResetStyle;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:disabled {
+  cursor: auto;
+  opacity: 0.5;
+}
+
+.button:disabled .quantityIcon {
+  stroke: $icon-primary;
+
+  @include dark-theme {
+    stroke: $icon-primary-dark;
+  }
+}
+
+.delete {
+  margin-left: $space-xl;
+  @media (max-width: 768px) {
+    margin-left: $space-s;
+  }
+}
+
+.deleteButton {
+  @include buttonResetStyle;
+}
+
+.quantityIcon {
+  stroke: $text-primary;
+  transition: 0.2s;
+
+  &:hover {
+    stroke: $icon-primary;
+  }
+
+  @include dark-theme {
+    stroke: $text-primary-dark;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: $space-s;
+
+  @media (max-width: 768px) {
+    margin-right: $space-m;
+  }
+}

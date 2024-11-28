@@ -1,11 +1,14 @@
 @use "styles/styles" as *;
 
 .card {
-  font-size: 0;
   cursor: pointer;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
 
   &:hover {
-    box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.25);
+    @include shadow;
+    transform: scale(1.02);
   }
 }
 
@@ -13,6 +16,12 @@
   width: 360px;
   height: 260px;
   overflow: hidden;
+
+  background-color: $button-primary-bg-disabled;
+
+  @include dark-theme {
+    background-color: $button-primary-bg-disabled-dark;
+  }
 }
 
 .img {
@@ -27,6 +36,10 @@
   flex-direction: column;
   padding: $space-s $space-xs;
   gap: $space-l;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .textContent {

@@ -2,18 +2,30 @@
 
 .icon {
   &.primary {
-    stroke: $icon-primary;
+    color: $icon-primary;
+
+    @include dark-theme {
+      color: $icon-primary-dark;
+    }
   }
 
   &.secondary {
-    stroke: $icon-secondary;
+    color: $icon-secondary;
+
+    @include dark-theme {
+      color: $icon-secondary-dark;
+    }
   }
 
   &.accent {
-    stroke: $brand;
+    color: $brand;
+
+    @include dark-theme {
+      color: $brand-dark;
+    }
   }
 
   &.inherit {
-    stroke: inherit;
+    color: inherit;
   }
 }
