@@ -1,0 +1,36 @@
+@use "styles/styles" as *;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  padding: 0 $space-m;
+
+  background-color: $background-elements;
+  border-bottom: 2px solid $border;
+
+  box-sizing: border-box;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 1000;
+
+  @include dark-theme {
+    background-color: $background-elements-dark !important;
+    border-bottom: 2px solid $border-dark;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: $space-s;
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
+}

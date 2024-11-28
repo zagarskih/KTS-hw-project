@@ -1,20 +1,31 @@
 @use "styles/styles" as *;
 
 .root {
-  height: calc(100% - 90px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexColumnCenter;
+
+  @media (max-width: 768px) {
+    margin-top: calc(90px + $space-m);
+    padding: 0 $space-s;
+  }
 }
 
 .container {
   display: flex;
   gap: $space-m;
-
   height: 500px;
   width: 800px;
   background-color: $background-elements;
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.2);
+  margin-top: 90px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: $space-s;
+  }
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .imgContainer {
@@ -42,6 +53,10 @@
   flex: 1;
   height: 468px;
   padding: $space-s $space-xl $space-s $space-m;
+
+  @media (max-width: 768px) {
+    padding: $space-s;
+  }
 }
 
 .form {
@@ -59,9 +74,25 @@
 
 .input {
   border: 1.5px solid $border;
+
+  @include dark-theme {
+    border: 1.5px solid $border-dark;
+  }
 }
 
 .bottomText {
   display: flex;
   gap: 8px;
+}
+
+.errorContainer {
+  height: 16px;
+}
+
+.signupButton:hover {
+  color: $brand-hover;
+
+  @include dark-theme {
+    color: $brand-hover-dark;
+  }
 }

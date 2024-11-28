@@ -3,6 +3,7 @@ import { Text } from 'components';
 import { CardsContainer } from 'components';
 import { observer } from 'mobx-react-lite';
 import rootStore from 'stores/instance';
+
 import styles from './RelatedProducts.module.scss';
 
 type RelatedProductProps = {
@@ -27,6 +28,7 @@ const RelatedProducts: React.FC<RelatedProductProps> = observer((props) => {
 
   if (isLoadingProductsByCategory) return '...loading';
   if (productsByCategory?.length === 0) return null;
+  if (!relatedProducts?.length) return null;
 
   return (
     <div>

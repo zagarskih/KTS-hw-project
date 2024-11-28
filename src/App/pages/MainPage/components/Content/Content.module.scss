@@ -8,19 +8,29 @@
 .textContainer {
   display: flex;
   align-items: center;
-  margin-bottom: $space-m;
+  justify-content: center;
 }
 
-.loadPrevButton {
-  margin-left: $space-s;
+.textButton {
+  margin-bottom: $space-s;
   background-color: $background;
   border: 0 solid $button-border;
   cursor: pointer;
   color: $text-accent;
   font-size: 16px;
+  font-weight: 600;
 
   &:hover {
     color: $text-secondary;
+
+    @include dark-theme {
+      color: $text-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    background-color: $background-dark;
+    color: $text-accent-dark;
   }
 }
 
@@ -29,6 +39,23 @@
   flex-direction: column;
   justify-content: space-between;
   gap: $space-m;
-  margin: 0 $space-s $space-l;
+  margin: 0 $space-s $space-s;
+  z-index: 100;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: $space-m;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.toTopContainer {
+  @include flexColumnCenter;
+  justify-content: center;
+  gap: $space-xs;
+}

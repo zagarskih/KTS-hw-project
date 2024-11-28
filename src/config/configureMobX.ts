@@ -1,7 +1,7 @@
-import { configure } from "mobx";
+import { configure } from 'mobx';
 
 export default configure({
-  useProxies: "ifavailable",
+  useProxies: 'ifavailable',
   computedRequiresReaction: true,
   reactionRequiresObservable: true,
   observableRequiresReaction: true,

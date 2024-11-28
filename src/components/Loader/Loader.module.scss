@@ -3,6 +3,10 @@
 .loader {
   color: $brand;
 
+  @include dark-theme {
+    color: $brand-dark;
+  }
+
   &.s {
     width: 24px;
     height: 24px;

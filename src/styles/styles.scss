@@ -1,3 +1,7 @@
+// * {
+//   outline: 1px solid #f00;
+// }
+
 #root {
   width: 100vw;
   min-height: 100vh;
@@ -19,7 +23,26 @@ $text-accent: #518581;
 $text-primary: #000000;
 $text-secondary: #afadb5;
 $icon-primary: #afadb5;
-$icon-secondary: #afadb5;
+$icon-secondary: #d7d6dc;
+$error-text: #e50035;
+
+$brand-dark: #ffb240;
+$brand-active-dark: #f2a736;
+$brand-hover-dark: #ffc56d;
+$button-primary-bg-disabled-dark: #40434b;
+$background-dark: #111827;
+$background-elements-dark: #161f32;
+$border-dark: #222c43;
+$button-border-dark: #1d2433;
+// $img-placeholder-dark: #25242a;
+$input-placeholder-dark: #c6c6c6;
+$text-primary-dark: #ffffff;
+$text-accent-dark: #ffb240;
+$text-secondary-dark: #afadb5;
+$icon-primary-dark: #afadb5;
+$icon-secondary-dark: #d7d6dc;
+$error-text-dark: #e50035;
+$background-input-dark: #1f2a42;
 
 $space-xxs: 8px;
 $space-xs: 12px;
@@ -27,6 +50,7 @@ $space-s: 16px;
 $space-m: 24px;
 $space-l: 32px;
 $space-xl: 48px;
+$space-xxl: 100px;
 
 .link {
   text-decoration: none;
@@ -38,16 +62,48 @@ $space-xl: 48px;
 .header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .goBack {
-  margin-left: 100px;
+  margin-left: $space-xxl;
   margin-top: 60px;
+}
+
+.errorMessage {
+  color: $error-text !important;
+}
+
+.loaderCenter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin buttonResetStyle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 @mixin shadow {
   box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+@mixin shadowLight {
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.1);
 }
 
 @mixin square($size) {
@@ -67,4 +123,18 @@ $space-xl: 48px;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
+}
+
+@mixin dark-theme {
+  :global(html.dark) & {
+    @content;
+  }
+}
+
+body {
+  background-color: $background;
+
+  @include dark-theme {
+    background-color: $background-dark;
+  }
 }

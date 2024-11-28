@@ -1,21 +1,74 @@
 @use "styles/styles" as *;
 
 .card {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
   &:hover {
     @include shadow;
+    transform: scale(1.02);
   }
 }
 
 .imgContainer {
+  position: relative;
   width: 360px;
   height: 360px;
   overflow: hidden;
+  background-color: $button-primary-bg-disabled;
+
+  @include dark-theme {
+    background-color: $button-primary-bg-disabled-dark;
+  }
 }
 
 .img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition:
+    opacity 0.5s ease,
+    z-index 0s ease 0.5s;
+}
+
+.fbImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img:first-child {
+  z-index: 1;
+}
+
+.img:last-child {
+  z-index: 0;
+}
+
+.imgContainer:hover .img:first-child {
+  opacity: 0;
+  z-index: 0;
+}
+
+.imgContainer:hover .img:last-child {
+  opacity: 1;
+  z-index: 1;
+}
+
+.imgContainer:not(:hover) .img:first-child {
+  opacity: 1;
+  z-index: 1;
+}
+
+.imgContainer:not(:hover) .img:last-child {
+  opacity: 0;
+  z-index: 0;
 }
 
 .content {
@@ -24,6 +77,10 @@
   flex-direction: column;
   padding: $space-xl $space-xs;
   gap: $space-l;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .textContent {

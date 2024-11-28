@@ -22,7 +22,7 @@ export default class CategoriesStore {
     this.categoriesRequestAC = new AbortController();
 
     this.isLoading = true;
-    const data = await getCategories({
+    const { data } = await getCategories({
       signal: this.categoriesRequestAC.signal,
     });
 

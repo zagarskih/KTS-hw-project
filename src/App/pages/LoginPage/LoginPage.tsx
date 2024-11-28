@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { Header } from 'components/Header';
-import clothes from 'assets/clothes.jpg';
-import frame from 'assets/icons/frame.svg';
-import { Input } from 'components/Input';
-import { Text } from 'components/Text';
-import { Button } from 'components/Button';
+import { Input, Text, Button, Layout } from 'components';
+import { useNavigate, Link } from 'react-router-dom';
+import rootStore from 'stores/instance';
 import RoutesConfig from 'routes';
+import useIsMobile from 'hooks/useIsMobile';
+import { useTheme } from 'hooks/useTheme';
 
 import styles from './LoginPage.module.scss';
-import { Link } from 'react-router-dom';
+import clothes from 'assets/images/clothes.jpg';
+import Lalasia from 'assets/icons/Lalasia';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const isMobile = useIsMobile();
+  const { theme } = useTheme();
+
+  const navigate = useNavigate();
+  const { authStore } = rootStore;
 
   const handleEmailChange = (value: string) => {
     setEmail(value);
@@ -22,35 +30,63 @@ const LoginPage: React.FC = () => {
     setPassword(value);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      await authStore.login(email, password);
+      navigate(RoutesConfig.home);
+    } catch {
+      setError('Wrong email and/or password');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <Header />
-      <div className={styles.root}>
-        <div className={styles.container}>
+    <Layout className={styles.root} isMobile={isMobile}>
+      <div className={styles.container}>
+        {!isMobile && (
           <div className={styles.imgContainer}>
             <img className={styles.img} src={clothes} alt="loginImg" />
           </div>
-          <div className={styles.loginContainer}>
-            <img src={frame} alt="logoImg" />
-            <form className={styles.form}>
-              <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
-              <Input className={styles.input} value={password} placeholder="password" onChange={handlePasswordChange} />
-              <Button>Log in</Button>
-            </form>
-            <div className={styles.bottomText}>
-              <Text view="p-16" color="secondary">
-                Don't have an account?
-              </Text>
-              <Link className="link" to={RoutesConfig.signup}>
-                <Text view="p-16" color="accent">
-                  Sign up now!
+        )}
+        <div className={styles.loginContainer}>
+          <Lalasia fill={theme === 'dark' ? '#ffffff' : '#151411'} />
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
+            <Input
+              isPassword={true}
+              className={styles.input}
+              value={password}
+              placeholder="password"
+              onChange={handlePasswordChange}
+            />
+            <div className={styles.errorContainer}>
+              {error && (
+                <Text view="p14" className="errorMessage">
+                  {error}
                 </Text>
-              </Link>
+              )}
             </div>
+            <Button disabled={loading}>Log in</Button>
+          </form>
+          <div className={styles.bottomText}>
+            <Text view="p16" color="secondary">
+              Don't have an account?
+            </Text>
+            <Link className="link" to={RoutesConfig.signup}>
+              <Text className={styles.signupButton} view="p16" color="accent">
+                Sign up now!
+              </Text>
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

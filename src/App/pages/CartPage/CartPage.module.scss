@@ -1,29 +1,74 @@
 @use "styles/styles" as *;
 
-.container {
-  display: flex;
-  justify-content: space-between;
-
-  @media (max-width: 1300px) {
-    flex-direction: column;
-    height: auto;
+.root {
+  @media (max-width: 768px) {
+    margin-top: calc(90px) + $space-s;
   }
 }
 
-.products {
-  margin-left: 100px;
+.goBackButton {
+  @media (max-width: 768px) {
+    margin-top: 0 !important;
+    margin-left: $space-m !important;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: $space-xxl;
+
+  @media (max-width: 1260px) {
+    flex-direction: column;
+    padding-bottom: $space-xl;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding-bottom: $space-xl;
+  }
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
   margin-top: $space-l;
   margin-right: $space-m;
+  gap: $space-m;
+
+  @media (max-width: 768px) {
+    margin-right: $space-s;
+  }
+}
+
+.product {
+  margin-left: $space-xxl;
+
+  @media (max-width: 768px) {
+    margin-left: $space-s;
+  }
 }
 
 .totalCard {
   margin-top: $space-l;
+  margin-right: $space-xxl;
 
-  @media (min-width: 1300px) {
-    margin-right: 100px;
-  } 
+  @media (max-width: 1260px) {
+    margin-left: $space-xxl;
+    margin-right: $space-s;
+  }
 
-  @media (max-width: 1300px) {
-    margin-left: 100px;
+  @media (max-width: 768px) {
+    margin-left: $space-s;
+    margin-right: $space-s;
+  }
+}
+
+.noItems {
+  margin-top: $space-m;
+  margin-left: 150px;
+
+  @media (max-width: 768px) {
+    margin-left: $space-l;
   }
 }

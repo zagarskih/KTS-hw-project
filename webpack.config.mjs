@@ -5,11 +5,13 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const srcPath = path.resolve(__dirname, 'src');
+const entryPath = path.join(srcPath, 'main.tsx');
 const isProd = process.env.NODE_ENV === 'production';
 
 const getSettingsForStyles = (withModules = false) => {
@@ -21,7 +23,7 @@ const getSettingsForStyles = (withModules = false) => {
           loader: 'css-loader',
           options: {
             modules: {
-              localIdentName: !isProd ? '[path][name]__[local]' : '[hash:base64]',
+              localIdentName: !isProd ? '[name]__[local]__[hash:base64:5]' : '[hash:base64]',
               namedExport: false,
             },
           },
@@ -39,11 +41,12 @@ const getSettingsForStyles = (withModules = false) => {
 };
 
 export default {
-  entry: './src/main.tsx',
+  entry: entryPath,
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: isProd ? 'bundle.[contenthash].js' : 'bundle.js',
     publicPath: '/',
+    clean: true,
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css'],
@@ -58,6 +61,7 @@ export default {
       stores: path.join(srcPath, 'stores'),
       utils: path.join(srcPath, 'utils'),
       routes: path.join(srcPath, 'routes'),
+      contexts: path.join(srcPath, 'contexts'),
     },
   },
   module: {
@@ -101,7 +105,7 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html'),
-      favicon: './src/assets/icons/favicon.svg',
+      favicon: path.resolve(srcPath, 'assets/icons/favicon.svg'),
     }),
     !isProd && new ReactRefreshWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin({
@@ -112,13 +116,27 @@ export default {
     }),
     isProd &&
       new MiniCssExtractPlugin({
-        filename: '[name].[contenthash].css',
+        filename: isProd ? '[name].[contenthash].css' : '[name].css',
       }),
     new webpack.ProvidePlugin({
       React: 'react',
     }),
+    new WebpackPwaManifest({
+      name: 'Lalasia',
+      short_name: 'Lalasia',
+      description: 'Best fake web shop',
+      background_color: '#ffffff',
+      theme_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      icons: [
+        {
+          src: path.resolve('src/assets/icons/logo.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+        },
+      ],
+    }),
   ].filter(Boolean),
   optimization: {
-    minimize: false,
+    minimize: isProd,
   },
 };

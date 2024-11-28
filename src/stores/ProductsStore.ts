@@ -32,10 +32,23 @@ export default class ProductsStore {
     makeAutoObservable(this);
   }
 
-  private readonly getOffsetForPrevProducts = (limit: number, currentOffset: number) => {
+  // Cases:
+  // 0000|****^**
+  // 0000|****^****
+  // 0000|****^
+  private readonly getTailBatchSize = (limit: number) => {
     const tailBatchSizeIfNotFull = this.products.size % limit;
-    const tailBatchSize = tailBatchSizeIfNotFull === 0 ? limit : tailBatchSizeIfNotFull;
-    return currentOffset + tailBatchSize - this.products.size - limit;
+    if (!this.hasMoreProducts && tailBatchSizeIfNotFull === 0) {
+      return 0;
+    }
+
+    return tailBatchSizeIfNotFull === 0 ? limit : tailBatchSizeIfNotFull;
+  };
+
+  private readonly getOffsetForPrevProducts = (limit: number, currentOffset: number) => {
+    const tailBatchSize = this.getTailBatchSize(limit);
+    const offset = currentOffset + tailBatchSize - this.products.size - limit;
+    return offset;
   };
 
   private readonly hasOffsetForPrevProducts = (limit: number, currentOffset: number) => {
@@ -51,7 +64,7 @@ export default class ProductsStore {
     this.nextProductsRequestAC = new AbortController();
     this.isLoadingPrevProducts = true;
 
-    const data = await getProducts({
+    const { data } = await getProducts({
       search,
       categoryId,
       offset: Math.max(this.getOffsetForPrevProducts(args.limit, args.offset), 0),
@@ -74,7 +87,7 @@ export default class ProductsStore {
 
     this.nextProductsRequestAC = new AbortController();
 
-    const data = await getProducts({
+    const { data } = await getProducts({
       search,
       categoryId,
       offset: args.offset,
@@ -96,8 +109,7 @@ export default class ProductsStore {
   };
 
   getProductById = (id: number): ProductApi | undefined => {
-    const singleProduct = this.products.get(id);
-    return singleProduct ? singleProduct : undefined;
+    return this.products.get(id);
   };
 
   fetchProductsByCategory = async (id: number) => {
@@ -112,7 +124,7 @@ export default class ProductsStore {
 
     this.isLoadingProductsByCategory = true;
 
-    const data = await getProductsByCategory({ id });
+    const { data } = await getProductsByCategory({ id });
 
     runInAction(() => {
       this.productsByCategory = data;

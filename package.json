@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx webpack serve --mode=development",
-    "build": "NODE_ENV=production npx webpack --mode=production",
+    "build": "cross-env NODE_ENV=production npx webpack --mode=production",
+    "start": "serve -s dist",
     "lint": "eslint \"./src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"./src/**/*.{js,jsx,ts,tsx}\" --fix"
   },
@@ -38,6 +39,7 @@
     "css-loader": "^7.1.2",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -54,6 +56,7 @@
     "sass": "^1.80.7",
     "sass-embedded": "^1.80.5",
     "sass-loader": "^16.0.3",
+    "serve": "^14.2.4",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
@@ -61,6 +64,7 @@
     "typescript-eslint": "^8.10.0",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "webpack-dev-server": "^5.1.0",
+    "webpack-pwa-manifest": "^4.3.0"
   }
 }

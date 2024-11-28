@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Text } from 'components';
+import { Text, Loading } from 'components';
 import CategoryCard from '../CategoryCard';
 import rootStore from 'stores/instance';
 import { observer } from 'mobx-react-lite';
@@ -19,7 +19,12 @@ const Content: React.FC = observer(() => {
 
   const filteredCategories = categories?.filter((c) => c.name.toLowerCase() !== 'new category');
 
-  if (isLoading) return '...loading';
+  if (isLoading)
+    return (
+      <div className="loaderCenter">
+        <Loading />
+      </div>
+    );
 
   const countOfCategories = filteredCategories ? filteredCategories.length : 0;
 
@@ -29,7 +34,7 @@ const Content: React.FC = observer(() => {
         <Text className={styles.title} view="title">
           Total categories
         </Text>
-        <Text className={styles.counter} view="p-20" color="accent" weight="bold">
+        <Text className={styles.counter} view="p20" color="accent" weight="bold">
           {countOfCategories}
         </Text>
       </div>
@@ -42,7 +47,7 @@ const Content: React.FC = observer(() => {
                 to={{ pathname: RoutesConfig.products.mask, search: `?category=${category.id}` }}
                 className={styles.link}
               >
-                <CategoryCard key={category.id} className={styles.card} image={category.image} name={category.name} />
+                <CategoryCard category={category} key={category.id} className={styles.card} />
               </Link>
             );
           })}
