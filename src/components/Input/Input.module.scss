@@ -16,18 +16,36 @@
 
   @include font-primary-s16;
 
+  @include dark-theme {
+    background-color: $background-dark;
+    border: 1px solid $border-dark;
+    color: $text-primary-dark;
+  }
+
   &:focus {
     border: 1px solid $brand;
     outline: none;
+
+    @include dark-theme {
+      border: 1px solid $brand-dark;
+    }
   }
 
   &:disabled {
     color: $input-placeholder;
+
+    @include dark-theme {
+      color: $input-placeholder-dark;
+    }
   }
 
   &::placeholder {
     @include font-primary-s16;
     color: $input-placeholder;
+
+    @include dark-theme {
+      color: $input-placeholder-dark;
+    }
   }
 }
 

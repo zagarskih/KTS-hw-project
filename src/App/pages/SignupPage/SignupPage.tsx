@@ -5,10 +5,11 @@ import rootStore from 'stores/instance';
 import RoutesConfig from 'routes';
 import { signupSchema, SignupFormData } from 'config/schemas';
 import useIsMobile from 'hooks/useIsMobile';
+import { useTheme } from 'hooks/useTheme';
 
 import styles from './SignupPage.module.scss';
 import clothes from 'assets/images/clothes.jpg';
-import frame from 'assets/icons/frame.svg';
+import Lalasia from 'assets/icons/Lalasia';
 
 const SignupPage: React.FC = () => {
   const [formData, setFormData] = useState<SignupFormData>({
@@ -22,6 +23,7 @@ const SignupPage: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const isMobile = useIsMobile();
+  const { theme } = useTheme();
 
   const navigate = useNavigate();
 
@@ -44,7 +46,8 @@ const SignupPage: React.FC = () => {
       return;
     }
 
-    const avatar = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    const avatar =
+      'https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg';
 
     try {
       await rootStore.authStore.register(formData.name, formData.email, formData.password, avatar);
@@ -70,7 +73,7 @@ const SignupPage: React.FC = () => {
           </div>
         )}
         <div className={styles.loginContainer}>
-          <img src={frame} alt="logoImg" />
+          <Lalasia fill={theme === 'dark' ? '#ffffff' : '#151411'} />
           <form className={styles.form} onSubmit={handleSubmit}>
             <Input
               className={styles.input}
@@ -110,7 +113,7 @@ const SignupPage: React.FC = () => {
               Already have an account?
             </Text>
             <Link className="link" to={RoutesConfig.login}>
-              <Text view="p16" color="accent">
+              <Text className={styles.loginButton} view="p16" color="accent">
                 Log in now!
               </Text>
             </Link>

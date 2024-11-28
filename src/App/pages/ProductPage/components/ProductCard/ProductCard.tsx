@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
-        {totalImages > 1 && (
+        {totalImages > 1 && isImageValid && (
           <button
             className={classNames(styles.imgButton, styles.prev, { [styles.disabled]: currentIndex === 0 })}
             onClick={showPrevImage}
@@ -83,19 +83,29 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
               transition: 'transform 0.5s ease',
             }}
           >
-            {images.map((image, index) => (
-              <div key={index} className={styles.image}>
+            {images.length > 0 && (
+              <>
                 {isImageValid ? (
-                  <img className={styles.image} src={image} alt={`Product ${index + 1}`} />
+                  images.map((image, index) => (
+                    <div key={index} className={styles.image}>
+                      <img className={styles.image} src={image} alt={`Product ${index + 1}`} />
+                    </div>
+                  ))
                 ) : (
-                  <img className={styles.image} src={getFixedFallbackImage(product.category.name, product.id)} />
+                  <div className={styles.image}>
+                    <img
+                      className={styles.image}
+                      src={getFixedFallbackImage(product.category.name, product.id)}
+                      alt="Fallback"
+                    />
+                  </div>
                 )}
-              </div>
-            ))}
+              </>
+            )}
           </div>
         </div>
 
-        {totalImages > 1 && (
+        {totalImages > 1 && isImageValid && (
           <button
             className={classNames(styles.imgButton, styles.next, {
               [styles.disabled]: currentIndex === totalImages - 1,

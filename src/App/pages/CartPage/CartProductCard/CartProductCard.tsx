@@ -7,11 +7,12 @@ import getFixedFallbackImage from 'utils/getFallbackImage';
 import { QuantityConfig } from 'config/constants';
 import { Link } from 'react-router-dom';
 import RoutesConfig from 'routes';
+import { useTheme } from 'hooks/useTheme';
 
 import styles from './CartProductCard.module.scss';
 import PlusIcon from 'assets/icons/PlusIcon';
 import MinusIcon from 'assets/icons/MinusIcon';
-import trashCan from 'assets/icons/trashCan.svg';
+import Delete from 'assets/icons/Delete';
 
 type CartProductCardProps = {
   product: ProductApi;
@@ -21,6 +22,7 @@ type CartProductCardProps = {
 const CartProductCard: React.FC<CartProductCardProps> = ({ product, quantity }) => {
   const { cartStore } = rootStore;
   const [imgError, setImgError] = useState(false);
+  const { theme } = useTheme();
 
   const isDecrementDisabled = quantity === QuantityConfig.MIN_QUANTITY;
   const isIncrementDisabled = quantity === QuantityConfig.MAX_QUANTITY;
@@ -72,7 +74,7 @@ const CartProductCard: React.FC<CartProductCardProps> = ({ product, quantity }) 
 
           <div className={styles.delete}>
             <button onClick={() => cartStore.removeFromCart(product.id)} className={styles.deleteButton}>
-              <img src={trashCan} alt="delete" />
+              <Delete stroke={theme === 'dark' ? '#ffffff' : '#151411'} />
             </button>
           </div>
         </div>

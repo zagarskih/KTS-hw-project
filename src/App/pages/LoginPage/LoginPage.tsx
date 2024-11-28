@@ -4,10 +4,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import rootStore from 'stores/instance';
 import RoutesConfig from 'routes';
 import useIsMobile from 'hooks/useIsMobile';
+import { useTheme } from 'hooks/useTheme';
 
 import styles from './LoginPage.module.scss';
 import clothes from 'assets/images/clothes.jpg';
-import frame from 'assets/icons/frame.svg';
+import Lalasia from 'assets/icons/Lalasia';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const isMobile = useIsMobile();
+  const { theme } = useTheme();
 
   const navigate = useNavigate();
   const { authStore } = rootStore;
@@ -53,7 +55,7 @@ const LoginPage: React.FC = () => {
           </div>
         )}
         <div className={styles.loginContainer}>
-          <img src={frame} alt="logoImg" />
+          <Lalasia fill={theme === 'dark' ? '#ffffff' : '#151411'} />
           <form onSubmit={handleSubmit} className={styles.form}>
             <Input className={styles.input} value={email} placeholder="email" onChange={handleEmailChange} />
             <Input
@@ -77,7 +79,7 @@ const LoginPage: React.FC = () => {
               Don't have an account?
             </Text>
             <Link className="link" to={RoutesConfig.signup}>
-              <Text view="p16" color="accent">
+              <Text className={styles.signupButton} view="p16" color="accent">
                 Sign up now!
               </Text>
             </Link>

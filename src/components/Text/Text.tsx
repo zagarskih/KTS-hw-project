@@ -17,7 +17,7 @@ const Text: React.FC<TextProps> = ({
   tag: Tag = 'p',
   children,
   maxLines,
-  color = 'inherit',
+  color = 'primary',
   view = 'p14',
   weight = '',
 }) => {

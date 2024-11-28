@@ -16,6 +16,12 @@
   width: 360px;
   height: 260px;
   overflow: hidden;
+
+  background-color: $button-primary-bg-disabled;
+
+  @include dark-theme {
+    background-color: $button-primary-bg-disabled-dark;
+  }
 }
 
 .img {
@@ -30,6 +36,10 @@
   flex-direction: column;
   padding: $space-s $space-xs;
   gap: $space-l;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .textContent {

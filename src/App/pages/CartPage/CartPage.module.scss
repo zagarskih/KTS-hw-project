@@ -18,6 +18,11 @@
   justify-content: space-between;
   padding-bottom: $space-xxl;
 
+  @media (max-width: 1260px) {
+    flex-direction: column;
+    padding-bottom: $space-xl;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     padding-bottom: $space-xl;
@@ -47,6 +52,11 @@
 .totalCard {
   margin-top: $space-l;
   margin-right: $space-xxl;
+
+  @media (max-width: 1260px) {
+    margin-left: $space-xxl;
+    margin-right: $space-s;
+  }
 
   @media (max-width: 768px) {
     margin-left: $space-s;

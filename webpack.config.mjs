@@ -5,6 +5,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +61,7 @@ export default {
       stores: path.join(srcPath, 'stores'),
       utils: path.join(srcPath, 'utils'),
       routes: path.join(srcPath, 'routes'),
+      contexts: path.join(srcPath, 'contexts'),
     },
   },
   module: {
@@ -118,6 +120,20 @@ export default {
       }),
     new webpack.ProvidePlugin({
       React: 'react',
+    }),
+    new WebpackPwaManifest({
+      name: 'Lalasia',
+      short_name: 'Lalasia',
+      description: 'Best fake web shop',
+      background_color: '#ffffff',
+      theme_color: '#ffffff',
+      crossorigin: 'use-credentials',
+      icons: [
+        {
+          src: path.resolve('src/assets/icons/logo.png'),
+          sizes: [96, 128, 192, 256, 384, 512],
+        },
+      ],
     }),
   ].filter(Boolean),
   optimization: {

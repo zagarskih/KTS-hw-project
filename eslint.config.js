@@ -73,6 +73,7 @@ module.exports = [
             ['stores', path.join(srcPath, 'stores')],
             ['utils', path.join(srcPath, 'utils')],
             ['routes', path.join(srcPath, 'routes')],
+            ['contexts', path.join(srcPath, 'contexts')],
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },

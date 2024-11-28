@@ -44,6 +44,10 @@
   align-items: center;
   background-color: $background-elements;
   cursor: pointer;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .imgContainer img {

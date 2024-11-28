@@ -7,6 +7,10 @@
   padding: $space-l;
   box-sizing: border-box;
   @include shadowLight;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .title {
@@ -52,6 +56,10 @@
   background-color: $border;
   width: 100%;
   margin: $space-s 0;
+
+  @include dark-theme {
+    background-color: $border-dark;
+  }
 }
 
 .checkoutButton {
@@ -69,4 +77,8 @@
   border: 1.5px solid $border;
   width: 220px;
   margin-right: $space-s;
+
+  @include dark-theme {
+    border: $border-dark;
+  }
 }

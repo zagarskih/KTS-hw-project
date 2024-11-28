@@ -11,6 +11,10 @@
   display: flex;
   flex-direction: column;
   padding: 16px;
+
+  @include dark-theme {
+    background: $background-elements-dark !important;
+  }
 }
 
 .nav {

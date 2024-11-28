@@ -16,8 +16,17 @@
   background-color: $background;
   color: $text-primary;
   padding: $space-xs;
+
+  @include dark-theme {
+    color: $text-primary-dark;
+    background-color: $background-dark;
+  }
 }
 
 .button:hover {
   background-color: $background !important;
+
+  @include dark-theme {
+    background-color: $background-dark !important;
+  }
 }

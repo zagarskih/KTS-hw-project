@@ -18,4 +18,19 @@
   left: 0;
 
   z-index: 1000;
+
+  @include dark-theme {
+    background-color: $background-elements-dark !important;
+    border-bottom: 2px solid $border-dark;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: $space-s;
+}
+
+.menuIcon {
+  display: flex;
+  align-items: center;
 }

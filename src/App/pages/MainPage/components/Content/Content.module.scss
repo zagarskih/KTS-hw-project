@@ -22,6 +22,15 @@
 
   &:hover {
     color: $text-secondary;
+
+    @include dark-theme {
+      color: $text-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    background-color: $background-dark;
+    color: $text-accent-dark;
   }
 }
 

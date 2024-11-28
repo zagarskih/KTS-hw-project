@@ -17,14 +17,30 @@
 
   &:hover:not(:disabled) {
     background-color: $brand-hover;
+
+    @include dark-theme {
+      background-color: $brand-hover-dark;
+    }
   }
 
   &:active:not(:disabled) {
     background-color: $brand-active;
+
+    @include dark-theme {
+      background-color: $brand-active-dark;
+    }
   }
 
   &.disabled {
     background-color: $button-primary-bg-disabled;
+
+    @include dark-theme {
+      background-color: $button-primary-bg-disabled-dark;
+    }
+  }
+
+  @include dark-theme {
+    background-color: $brand-dark;
   }
 }
 

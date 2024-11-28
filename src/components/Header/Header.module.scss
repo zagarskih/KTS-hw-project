@@ -12,12 +12,22 @@
   border-bottom: 2px solid $border;
 
   box-sizing: border-box;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+    border-bottom: 2px solid $border-dark;
+  }
+
+  @media (max-width: 845px) {
+    padding: $space-l;
+  }
 }
 
 .icons {
   display: flex;
   justify-content: space-between;
   gap: $space-m;
+  align-items: center;
 }
 
 .textContainer {
@@ -38,6 +48,10 @@
 
   &:hover {
     color: $text-accent !important;
+
+    @include dark-theme {
+      color: $text-accent-dark !important;
+    }
   }
 }
 
@@ -56,8 +70,13 @@
   height: 3px;
   background-color: $brand;
   z-index: 10000;
+
+  @include dark-theme {
+    background-color: $brand-dark;
+  }
 }
 
+.theme,
 .bag,
 .user {
   cursor: pointer;

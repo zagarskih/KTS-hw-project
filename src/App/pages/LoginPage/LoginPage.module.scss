@@ -22,6 +22,10 @@
     width: 100%;
     margin-top: $space-s;
   }
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
 }
 
 .imgContainer {
@@ -70,6 +74,10 @@
 
 .input {
   border: 1.5px solid $border;
+
+  @include dark-theme {
+    border: 1.5px solid $border-dark;
+  }
 }
 
 .bottomText {
@@ -79,4 +87,12 @@
 
 .errorContainer {
   height: 16px;
+}
+
+.signupButton:hover {
+  color: $brand-hover;
+
+  @include dark-theme {
+    color: $brand-hover-dark;
+  }
 }

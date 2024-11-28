@@ -26,6 +26,24 @@ $icon-primary: #afadb5;
 $icon-secondary: #d7d6dc;
 $error-text: #e50035;
 
+$brand-dark: #ffb240;
+$brand-active-dark: #f2a736;
+$brand-hover-dark: #ffc56d;
+$button-primary-bg-disabled-dark: #40434b;
+$background-dark: #111827;
+$background-elements-dark: #161f32;
+$border-dark: #222c43;
+$button-border-dark: #1d2433;
+// $img-placeholder-dark: #25242a;
+$input-placeholder-dark: #c6c6c6;
+$text-primary-dark: #ffffff;
+$text-accent-dark: #ffb240;
+$text-secondary-dark: #afadb5;
+$icon-primary-dark: #afadb5;
+$icon-secondary-dark: #d7d6dc;
+$error-text-dark: #e50035;
+$background-input-dark: #1f2a42;
+
 $space-xxs: 8px;
 $space-xs: 12px;
 $space-s: 16px;
@@ -105,4 +123,18 @@ $space-xxl: 100px;
   font-weight: 400;
   font-size: 16px;
   line-height: 20px;
+}
+
+@mixin dark-theme {
+  :global(html.dark) & {
+    @content;
+  }
+}
+
+body {
+  background-color: $background;
+
+  @include dark-theme {
+    background-color: $background-dark;
+  }
 }

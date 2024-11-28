@@ -66,6 +66,17 @@
 
     &:hover {
       color: $background-elements;
+      
+      @include dark-theme {
+        color: $text-accent-dark;
+        background-color: $background-elements-dark;
+      }
+    }
+
+    @include dark-theme {
+      background-color: $background-dark;
+      color: $text-primary-dark;
+      border: 1px solid $button-border-dark;
     }
   }
 }

@@ -11,14 +11,26 @@
 
   &.primary {
     color: $text-primary;
+
+    @include dark-theme {
+      color: $text-primary-dark;
+    }
   }
 
   &.secondary {
     color: $text-secondary;
+
+    @include dark-theme {
+      color: $text-secondary-dark;
+    }
   }
 
   &.accent {
     color: $text-accent;
+
+    @include dark-theme {
+      color: $text-accent-dark;
+    }
   }
 
   &.inherit {

@@ -13,6 +13,10 @@
 .input {
   color: $input-placeholder;
   @include font-primary-s14;
+
+  @include dark-theme {
+    color: $input-placeholder-dark;
+  }
 }
 
 .options {
@@ -25,6 +29,10 @@
   overflow-y: auto;
   margin-top: 8px;
   @include shadow;
+
+  @include dark-theme {
+    background: $background-elements-dark;
+  }
 }
 
 .item {
@@ -35,11 +43,23 @@
 
   &:hover {
     color: $text-secondary;
+
+    @include dark-theme {
+      color: $text-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $text-primary-dark;
   }
 }
 
 .itemSelected {
   color: $text-accent;
+
+  @include dark-theme {
+    color: $text-accent-dark;
+  }
 }
 
 .icon {
@@ -53,6 +73,14 @@
 
   &:hover {
     color: $icon-secondary;
+
+    @include dark-theme {
+      color: $icon-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $icon-primary-dark;
   }
 }
 
@@ -65,5 +93,13 @@
 
   &:hover path {
     stroke: $icon-secondary;
+
+    @include dark-theme {
+      stroke: $icon-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $icon-primary-dark;
   }
 }

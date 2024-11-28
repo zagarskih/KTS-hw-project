@@ -1,14 +1,17 @@
 import React from 'react';
-import frame from 'assets/icons/frame.svg';
-import bag from 'assets/icons/bag.svg';
-import user from 'assets/icons/user.svg';
 import { Text } from 'components';
 import classNames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
 import { tabsEntries } from 'config/tabs';
 import RoutesConfig from 'routes';
+import { useTheme } from 'hooks/useTheme';
 
 import styles from './Header.module.scss';
+import Lalasia from 'assets/icons/Lalasia';
+import Bag from 'assets/icons/Bag';
+import User from 'assets/icons/User';
+import Sun from 'assets/icons/Sun';
+import Moon from 'assets/icons/Moon';
 
 type HeaderProps = {
   className?: string;
@@ -18,10 +21,12 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const { className } = props;
   const location = useLocation();
 
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <div className={classNames(className, styles.container)}>
       <Link className="link" to={RoutesConfig.products.mask}>
-        <img src={frame} alt="frame" />
+        <Lalasia fill={theme === 'dark' ? '#ffffff' : '#151411'} />
       </Link>
 
       <div className={styles.textContainer}>
@@ -43,11 +48,14 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
       </div>
 
       <div className={styles.icons}>
+        <div className={styles.theme} onClick={toggleTheme}>
+          {theme === 'dark' ? <Sun stroke="#ffffff" /> : <Moon />}{' '}
+        </div>
         <Link className="link" to={RoutesConfig.cart}>
-          <img className={styles.bag} src={bag} alt="bag" />
+          <Bag className={styles.bag} stroke={theme === 'dark' ? '#ffffff' : '#151411'} />
         </Link>
         <Link className="link" to={RoutesConfig.profile}>
-          <img className={styles.user} src={user} alt="user" />
+          <User className={styles.user} stroke={theme === 'dark' ? '#ffffff' : '#151411'} />
         </Link>
       </div>
     </div>

@@ -50,7 +50,7 @@ const TotalCard: React.FC = () => {
         {error && <Text className={styles.error}>{error}</Text>}
         {localStorage.getItem('appliedPromocode') === AmountConfig.PROMOCODE && (
           <Text className={styles.promoApplied} color="accent" view="p14">
-            {AmountConfig.discount}% discount promocode applied
+            {AmountConfig.discount}% discount applied
           </Text>
         )}
       </div>
