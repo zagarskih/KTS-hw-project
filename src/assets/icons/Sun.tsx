@@ -6,7 +6,7 @@ type LogoProps = {
 
 const Sun: React.FC<LogoProps> = ({ stroke = '#151411' }) => {
   return (
-    <svg width="50" height="50" viewBox="-6 -3 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="50" height="50" viewBox="-6 -6 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="4" stroke={stroke} />
       <path d="M12 8V4" stroke={stroke} />
       <path d="M12 20V16" stroke={stroke} />

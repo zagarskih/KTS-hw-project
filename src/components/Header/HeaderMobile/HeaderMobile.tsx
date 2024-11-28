@@ -32,7 +32,6 @@ const HeaderMobile: React.FC<HeaderProps> = (props: HeaderProps) => {
           <div className={styles.theme} onClick={toggleTheme}>
             {theme === 'dark' ? <Sun stroke="#ffffff" /> : <Moon />}
           </div>
-          {/* <img src={menu} alt="menu" onClick={toggleMenu} /> */}
           <div className={styles.menuIcon} onClick={toggleMenu}>
             <Menu stroke={theme === 'dark' ? '#ffffff' : '#151411'} />
           </div>
