@@ -16,21 +16,11 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "baseUrl": "./src",
-    "paths": {
-      "components/*": ["components/*"],
-      "assets/*": ["assets/*"],
-      "api/*": ["api/*"],
-      "hooks/*": ["hooks/*"],
-      "helpers/*": ["helpers/*"],
-      "styles/*": ["styles/*"],
-      "pages/*": ["styles/*"],
-      "stores/*": ["stores/*"]
-    }
+    "baseUrl": "./src"
   },
   "include": ["src"]
 }

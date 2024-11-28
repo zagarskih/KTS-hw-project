@@ -1,60 +1,53 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Text } from 'components';
-import { Placeholder } from 'components';
+import getFixedFallbackImage from 'utils/getFallbackImage';
+import { ProductApi } from 'api/types';
 import styles from './Card.module.scss';
 
 export type CardProps = {
-  /** Дополнительный classname */
   className?: string;
-  /** URL изображения */
-  image: string;
-  /** Слот над заголовком */
-  captionSlot?: React.ReactNode;
-  /** Заголовок карточки */
-  title: React.ReactNode;
-  /** Описание карточки */
-  subtitle: React.ReactNode;
-  /** Содержимое карточки (футер/боковая часть), может быть пустым */
-  contentSlot?: React.ReactNode;
-  /** Клик на карточку */
   onClick?: React.MouseEventHandler;
-  /** Слот для действия */
   actionSlot?: React.ReactNode;
+  product?: ProductApi;
 };
 
 const Card: React.FC<CardProps> = (props) => {
-  const { className, image, title, captionSlot, subtitle, contentSlot, actionSlot, onClick } = props;
-
+  const { className, actionSlot, onClick, product } = props;
   const [imgError, setImgError] = useState(false);
 
   return (
     <div className={classNames(styles.card, className)} onClick={onClick ? onClick : undefined}>
-      {image && !imgError ? (
+      {product?.images[0] && !imgError ? (
         <div className={styles.imgContainer}>
-          <img className={styles.img} src={image} alt="Product" onError={() => setImgError(true)} />
+          <img className={styles.img} src={product.images[0]} alt="Product 1" onError={() => setImgError(true)} />
+          {product.images[1] && (
+            <img className={styles.img} src={product.images[1]} alt="Product 2" onError={() => setImgError(true)} />
+          )}
         </div>
       ) : (
-        <Placeholder height={360} />
+        <div className={styles.imgContainer}>
+          <img className={styles.fbImg} src={getFixedFallbackImage(product?.category.name, product?.id)} />
+        </div>
       )}
       <div className={styles.content}>
         <div className={styles.textContent}>
-          {captionSlot && (
-            <Text className={className} view="p-14" weight="medium" color="secondary">
-              {captionSlot}
+          {product?.category.name && (
+            <Text className={className} view="p14" weight="medium" color="secondary">
+              {product?.category.name}
             </Text>
           )}
-          <Text className={className} view="p-20" weight={'medium'} maxLines={2}>
-            {title}
+          <Text className={className} view="p20" weight={'medium'} maxLines={2}>
+            {product?.title}
           </Text>
-          <Text className={className} view="p-16" color="secondary" weight="normal" maxLines={3}>
-            {subtitle}
+          <Text className={className} view="p16" color="secondary" weight="normal" maxLines={3}>
+            {product?.description}
           </Text>
         </div>
         <div className={styles.actions}>
-          {contentSlot && (
-            <Text className={classNames(className)} view="p-18" weight="bold">
-              {contentSlot}
+          {product?.price && (
+            <Text className={classNames(className)} view="p18" weight="bold">
+              {`$${product.price}`}
             </Text>
           )}
           {actionSlot}

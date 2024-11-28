@@ -1,15 +1,17 @@
 import { z } from 'zod';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import RelatedProducts from './components/RelatedProducts';
-import GoBack from './components/GoBack';
-import { Header } from 'components';
+import { GoBack, Layout } from 'components';
 import ProductCard from './components/ProductCard';
-import { ProductApi } from 'api/types';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import { useSafeParams } from 'hooks/useSafeParams';
 import { observer } from 'mobx-react-lite';
-import productStore from 'stores/ProductStore';
+import ProductStore from 'stores/ProductStore';
+import { useLocalStore } from 'hooks/useLocalStore';
+import { Loading } from 'components';
+import RoutesConfig from 'routes';
+import useIsMobile from 'hooks/useIsMobile';
+import classNames from 'classnames';
 
 import styles from './ProductPage.module.scss';
 
@@ -17,42 +19,52 @@ const paramsSchema = z.object({
   id: z.coerce.number().int().positive(),
 });
 
-const ProductPage: React.FC = observer(() => {
-  const params = useSafeParams(paramsSchema, '/');
+const ProductPage: React.FC = () => {
+  const params = useSafeParams(paramsSchema, RoutesConfig.home);
   const productId = params?.id;
 
-  const [selectedProduct, setSelectedProduct] = useState<ProductApi | null>(null);
+  const productStore = useLocalStore(() => new ProductStore());
+  const { product, fetchProduct } = productStore;
 
-  const { fetchProduct, isLoadingProduct } = productStore;
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const loadProduct = async () => {
-      if (productId !== undefined) {
-        const product = await fetchProduct(productId);
-        setSelectedProduct(product || null);
-      }
+    if (productId !== undefined) {
+      fetchProduct(productId);
+    }
+
+    return () => {
+      productStore.destroy();
     };
-    loadProduct();
-  }, [productId, fetchProduct]);
+  }, [productId, productStore]);
 
-  if (isLoadingProduct) return '...loading';
+  if (product === null) return <NotFoundPage />;
 
-  if (!selectedProduct) return <NotFoundPage />;
+  const goBack = () => {
+    window.history.back();
+  };
 
   return (
-    <div className={styles.root}>
-      <Header className="header" />
-      <Link className={styles.goBackLink} to="/products">
-        <GoBack className={styles.goBack} />
-      </Link>
-      <div className={styles.container}>
-        <ProductCard product={selectedProduct} />
-        <RelatedProducts categoryId={selectedProduct.category.id} productID={selectedProduct.id} />
-      </div>
-    </div>
+    <Layout className={styles.root} isMobile={isMobile}>
+      {product ? (
+        <>
+          <GoBack onClick={goBack} className={classNames(styles.goBackButton, 'goBack')} children="Go back" />
+          <div className={styles.card}>
+            <ProductCard product={product} />
+          </div>
+          <div className={styles.related}>
+            <RelatedProducts categoryId={product.category.id} productID={product.id} />
+          </div>
+        </>
+      ) : (
+        <div className="loaderCenter">
+          <Loading />
+        </div>
+      )}
+    </Layout>
   );
-});
+};
 
-export default ProductPage;
+export default observer(ProductPage);

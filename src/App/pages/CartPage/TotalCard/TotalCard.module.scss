@@ -1,0 +1,84 @@
+@use "styles/styles" as *;
+
+.container {
+  height: auto;
+  width: 100%;
+  background-color: $background-elements;
+  padding: $space-l;
+  box-sizing: border-box;
+  @include shadowLight;
+
+  @include dark-theme {
+    background-color: $background-elements-dark;
+  }
+}
+
+.title {
+  margin-bottom: $space-m;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error {
+  margin-left: $space-xxs;
+  color: $error-text !important;
+}
+
+.promocodeText {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-s;
+}
+
+.promoTitle {
+  width: 140px;
+}
+
+.promoApplied {
+  text-align: right;
+  width: 100%;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-xxs;
+}
+
+.horizontalLine {
+  border: none;
+  height: 2px;
+  background-color: $border;
+  width: 100%;
+  margin: $space-s 0;
+
+  @include dark-theme {
+    background-color: $border-dark;
+  }
+}
+
+.checkoutButton {
+  margin-top: $space-l;
+  width: 100%;
+}
+
+.promocode {
+  display: flex;
+  justify-content: space-between;
+  margin: $space-s 0;
+}
+
+.input {
+  border: 1.5px solid $border;
+  width: 220px;
+  margin-right: $space-s;
+
+  @include dark-theme {
+    border: $border-dark;
+  }
+}

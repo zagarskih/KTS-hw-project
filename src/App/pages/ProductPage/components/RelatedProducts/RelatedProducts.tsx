@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Text } from 'components';
 import { CardsContainer } from 'components';
 import { observer } from 'mobx-react-lite';
-import rootStore from 'stores/instanse';
+import rootStore from 'stores/instance';
+
 import styles from './RelatedProducts.module.scss';
 
 type RelatedProductProps = {
@@ -13,11 +14,7 @@ type RelatedProductProps = {
 const RelatedProducts: React.FC<RelatedProductProps> = observer((props) => {
   const { categoryId, productID } = props;
   const { productsStore } = rootStore;
-  const {
-    productsByCategory,
-    fetchProductsByCategory,
-    isLoadingProductsByCategory,
-  } = productsStore;
+  const { productsByCategory, fetchProductsByCategory, isLoadingProductsByCategory } = productsStore;
 
   useEffect(() => {
     if (categoryId) {
@@ -25,14 +22,13 @@ const RelatedProducts: React.FC<RelatedProductProps> = observer((props) => {
     }
   }, [categoryId, fetchProductsByCategory]);
 
+  const relatedProducts = useMemo(() => {
+    return productsByCategory?.filter((product) => product.id !== productID).slice(0, 3) ?? null;
+  }, [productsByCategory, productID]);
+
   if (isLoadingProductsByCategory) return '...loading';
-
   if (productsByCategory?.length === 0) return null;
-
-  const relatedProducts =
-    productsByCategory
-      ?.filter((product) => product.id !== productID)
-      .slice(0, 3) ?? null;
+  if (!relatedProducts?.length) return null;
 
   return (
     <div>
@@ -44,4 +40,4 @@ const RelatedProducts: React.FC<RelatedProductProps> = observer((props) => {
   );
 });
 
-export default RelatedProducts;
+export default React.memo(RelatedProducts);

@@ -2,10 +2,5 @@
 
 .title {
   font-size: 32px !important;
-}
-
-@media (max-width: 1340px) {
-  .cardsContainer {
-    justify-content: baseline;
-  }
+  margin-left: $space-s;
 }

@@ -1,0 +1,105 @@
+@use "styles/styles" as *;
+
+.container {
+  position: relative;
+  width: 300px;
+  cursor: pointer;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.input {
+  color: $input-placeholder;
+  @include font-primary-s14;
+
+  @include dark-theme {
+    color: $input-placeholder-dark;
+  }
+}
+
+.options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: $background-elements;
+  border: 0;
+  overflow-y: auto;
+  margin-top: 8px;
+  @include shadow;
+
+  @include dark-theme {
+    background: $background-elements-dark;
+  }
+}
+
+.item {
+  padding: 14px 12px;
+  color: $text-primary;
+  cursor: pointer;
+  @include font-primary-s14;
+
+  &:hover {
+    color: $text-secondary;
+
+    @include dark-theme {
+      color: $text-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $text-primary-dark;
+  }
+}
+
+.itemSelected {
+  color: $text-accent;
+
+  @include dark-theme {
+    color: $text-accent-dark;
+  }
+}
+
+.icon {
+  color: $icon-primary;
+  display: inline-block;
+  transition: 0.3s ease;
+
+  &.flipIcon {
+    transform: scaleY(-1);
+  }
+
+  &:hover {
+    color: $icon-secondary;
+
+    @include dark-theme {
+      color: $icon-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $icon-primary-dark;
+  }
+}
+
+.clearIcon {
+  position: absolute;
+
+  z-index: 1000;
+  stroke: $icon-primary;
+  left: -30px;
+
+  &:hover path {
+    stroke: $icon-secondary;
+
+    @include dark-theme {
+      stroke: $icon-secondary-dark;
+    }
+  }
+
+  @include dark-theme {
+    color: $icon-primary-dark;
+  }
+}

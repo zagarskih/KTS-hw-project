@@ -12,6 +12,8 @@ export default class CategoriesStore {
   }
 
   fetchCategories = async () => {
+    if (this.categories || this.isLoading) return;
+
     if (this.categoriesRequestAC) {
       this.categoriesRequestAC.abort();
       this.categoriesRequestAC = null;
@@ -20,7 +22,7 @@ export default class CategoriesStore {
     this.categoriesRequestAC = new AbortController();
 
     this.isLoading = true;
-    const data = await getCategories({
+    const { data } = await getCategories({
       signal: this.categoriesRequestAC.signal,
     });
 
@@ -31,8 +33,8 @@ export default class CategoriesStore {
     if (data) {
       runInAction(() => {
         this.categories = data;
-        this.isLoading = false;
       });
     }
+    this.isLoading = false;
   };
 }
